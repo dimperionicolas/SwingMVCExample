@@ -35,7 +35,7 @@ public class SettingsController implements MouseListener {
 		this.views.txt_profile_id.setText("" + id_user);
 		this.views.txt_profile_fullname.setText(full_name_user);
 		this.views.txt_profile_address.setText(address_user);
-		this.views.txt_profile_phone.setText(telephone_user);
+		this.views.txt_profile_telephone.setText(telephone_user);
 		this.views.txt_profile_email.setText(email_user);
 	}
 

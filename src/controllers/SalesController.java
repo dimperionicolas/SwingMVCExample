@@ -21,10 +21,9 @@ import models.Products;
 import models.ProductsDao;
 import models.Sales;
 import models.SalesDao;
-import views.ISystemView;
 import views.SystemView;
 
-public class SalesController<T extends ISystemView> implements KeyListener, ActionListener, MouseListener {
+public class SalesController implements KeyListener, ActionListener, MouseListener {
 
 	private Sales sale;
 	private SalesDao saleDao;

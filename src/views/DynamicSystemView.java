@@ -159,9 +159,9 @@ public class DynamicSystemView extends AbstractSystemView {
 	// Customer
 	private JTextField txt_customer_id;
 	private JTextField txt_customer_address;
-	private JTextField txt_customer_phone;
+	private JTextField txt_customer_telephone;
 	private JTextField txt_customer_email;
-	private JTextField txt_customer_full_name;
+	private JTextField txt_customer_fullname;
 	private JButton btn_customer_cancel;
 	private JButton btn_customer_delete;
 	private JButton btn_customer_update;
@@ -171,23 +171,23 @@ public class DynamicSystemView extends AbstractSystemView {
 
 	// Employee
 	private JTextField txt_employee_id;
-	private JTextField txt_employee_user_name;
+	private JTextField txt_employee_username;
 	private JTextField txt_employee_address;
-	private JTextField txt_employee_phone;
-	private JTextField txt_employee_full_name;
+	private JTextField txt_employee_telephone;
+	private JTextField txt_employee_fullname;
 	private JTextField txt_employee_email;
 	private JPasswordField txt_employee_password;
 	private JButton btn_employee_cancel;
 	private JButton btn_employee_delete;
 	private JButton btn_employee_update;
 	private JButton btn_employee_register;
-	private JTextField btn_employee_search;
-	private JTable employee_table;
+	private JTextField txt_employee_search;
+	private JTable employees_table;
 
 	// Suppliers
 	private JTextField txt_supplier_name;
 	private JTextField txt_supplier_address;
-	private JTextField txt_supplier_phone;
+	private JTextField txt_supplier_telephone;
 	private JTextField txt_supplier_description;
 	private JTextField txt_supplier_email;
 	private JTextField txt_supplier_id;
@@ -205,7 +205,7 @@ public class DynamicSystemView extends AbstractSystemView {
 	private JButton btn_category_update;
 	private JButton btn_category_delete;
 	private JTextField txt_category_search;
-	private JTable category_table;
+	private JTable categories_table;
 
 	// Reports
 	private JTable purchase_report_table;
@@ -214,9 +214,9 @@ public class DynamicSystemView extends AbstractSystemView {
 	// Settings
 	private JTextField txt_profile_id;
 	private JTextField txt_profile_address;
-	private JTextField txt_profile_phone;
+	private JTextField txt_profile_telephone;
 	private JTextField txt_profile_email;
-	private JTextField txt_profile_full_name;
+	private JTextField txt_profile_fullname;
 	private JPasswordField txt_profile_password_modify;
 	private JPasswordField txt_profile_modify_confirm;
 	private JButton btn_profile_modify_data;
@@ -224,7 +224,7 @@ public class DynamicSystemView extends AbstractSystemView {
 	// Sales
 	private JTextField txt_sale_product_code;
 	private JTextField txt_sale_product_name;
-	private JTextField txt_sale_ammount;
+	private JTextField txt_sale_quantity;
 	private JTextField txt_sale_customer_id;
 	private JTextField txt_sale_price;
 	private JTextField txt_sale_product_id;
@@ -260,6 +260,8 @@ public class DynamicSystemView extends AbstractSystemView {
 	//
 	Sales sale = new Sales();
 	SalesDao saleDao = new SalesDao();
+	public JTabbedPane panel_tab_menu_options;
+	public JComboBox<String> cmb_supplier_city;
 
 	/**
 	 * Create the application. Se lanza la aplicacion desde main..
@@ -319,7 +321,7 @@ public class DynamicSystemView extends AbstractSystemView {
 
 	private void loadInnerContentPanels() {
 		// Creo el panel tab para agregar su contenido.
-		JTabbedPane panel_tab_menu_options = new JTabbedPane(JTabbedPane.TOP);
+		panel_tab_menu_options = new JTabbedPane(JTabbedPane.TOP);
 		panel_tab_menu_options.setBounds(200, 100, 990, 540);
 
 		frame.getContentPane().add(panel_tab_menu_options);
@@ -565,8 +567,8 @@ public class DynamicSystemView extends AbstractSystemView {
 
 		txt_sale_product_name = UIComponentFactory.createTextField(ComponentPosition.TWO);
 		Ventas.add(txt_sale_product_name);
-		txt_sale_ammount = UIComponentFactory.createTextField(ComponentPosition.THREE);
-		Ventas.add(txt_sale_ammount);
+		txt_sale_quantity = UIComponentFactory.createTextField(ComponentPosition.THREE);
+		Ventas.add(txt_sale_quantity);
 		txt_sale_customer_id = UIComponentFactory.createTextField(ComponentPosition.FOUR);
 		Ventas.add(txt_sale_customer_id);
 		txt_sale_total_to_pay = UIComponentFactory.createTextField(ComponentPosition.FIVE);
@@ -609,12 +611,12 @@ public class DynamicSystemView extends AbstractSystemView {
 
 		txt_customer_id = UIComponentFactory.createTextField(ComponentPosition.ONE);
 		Cliente.add(txt_customer_id);
-		txt_customer_full_name = UIComponentFactory.createTextField(ComponentPosition.TWO);
-		Cliente.add(txt_customer_full_name);
+		txt_customer_fullname = UIComponentFactory.createTextField(ComponentPosition.TWO);
+		Cliente.add(txt_customer_fullname);
 		txt_customer_address = UIComponentFactory.createTextField(ComponentPosition.THREE);
 		Cliente.add(txt_customer_address);
-		txt_customer_phone = UIComponentFactory.createTextField(ComponentPosition.SIX);
-		Cliente.add(txt_customer_phone);
+		txt_customer_telephone = UIComponentFactory.createTextField(ComponentPosition.SIX);
+		Cliente.add(txt_customer_telephone);
 		txt_customer_email = UIComponentFactory.createTextField(ComponentPosition.SEVEN);
 		Cliente.add(txt_customer_email);
 
@@ -652,14 +654,14 @@ public class DynamicSystemView extends AbstractSystemView {
 
 		txt_employee_id = UIComponentFactory.createTextField(ComponentPosition.ONE);
 		Empleados.add(txt_employee_id);
-		txt_employee_full_name = UIComponentFactory.createTextField(ComponentPosition.TWO);
-		Empleados.add(txt_employee_full_name);
-		txt_employee_user_name = UIComponentFactory.createTextField(ComponentPosition.THREE);
-		Empleados.add(txt_employee_user_name);
+		txt_employee_fullname = UIComponentFactory.createTextField(ComponentPosition.TWO);
+		Empleados.add(txt_employee_fullname);
+		txt_employee_username = UIComponentFactory.createTextField(ComponentPosition.THREE);
+		Empleados.add(txt_employee_username);
 		txt_employee_address = UIComponentFactory.createTextField(ComponentPosition.SIX);
 		Empleados.add(txt_employee_address);
-		txt_employee_phone = UIComponentFactory.createTextField(ComponentPosition.SEVEN);
-		Empleados.add(txt_employee_phone);
+		txt_employee_telephone = UIComponentFactory.createTextField(ComponentPosition.SEVEN);
+		Empleados.add(txt_employee_telephone);
 		txt_employee_email = UIComponentFactory.createTextField(ComponentPosition.EIGHT);
 		Empleados.add(txt_employee_email);
 
@@ -683,13 +685,13 @@ public class DynamicSystemView extends AbstractSystemView {
 		cmb_employee_rol = getComboWithValues(list, 160, 177, 180, 20);
 		Empleados.add(cmb_employee_rol);
 
-		btn_employee_search = UIComponentFactory.createFixedSearchButton(tab_employees);
+		txt_employee_search = UIComponentFactory.createFixedSearchButton(tab_employees);
 
 		String[] columnNames = { "Identificación", "Nombre", "Nombre de usuario", "Dirección", "Teléfono", "Correo",
 				"Rol" };
 		boolean[] columnEditables = { false, false, false, false, false, false, false };
 
-		employee_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_employees);
+		employees_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_employees);
 
 	}
 
@@ -710,8 +712,8 @@ public class DynamicSystemView extends AbstractSystemView {
 		Proveedores.add(txt_supplier_name);
 		txt_supplier_address = UIComponentFactory.createTextField(ComponentPosition.TWO);
 		Proveedores.add(txt_supplier_address);
-		txt_supplier_phone = UIComponentFactory.createTextField(ComponentPosition.THREE);
-		Proveedores.add(txt_supplier_phone);
+		txt_supplier_telephone = UIComponentFactory.createTextField(ComponentPosition.THREE);
+		Proveedores.add(txt_supplier_telephone);
 		txt_supplier_email = UIComponentFactory.createTextField(ComponentPosition.FOUR);
 		Proveedores.add(txt_supplier_email);
 
@@ -724,7 +726,7 @@ public class DynamicSystemView extends AbstractSystemView {
 		List<String> list = new ArrayList<>();
 		list.add("Buenos Aires");
 		list.add("Barcelona");
-		JComboBox<String> cmb_supplier_city = getComboWithValues(list, 530, 77, 180, 20);
+		cmb_supplier_city = getComboWithValues(list, 530, 77, 180, 20);
 		Proveedores.add(cmb_supplier_city);
 
 		btn_supplier_register = UIComponentFactory.createButton(ButtonPosition.FIRST, "Registrar");
@@ -787,9 +789,9 @@ public class DynamicSystemView extends AbstractSystemView {
 		String[] columnNames = { "Id", "Nombre" };
 		boolean[] columnEditables = { false, false };
 
-		category_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_category);
+		categories_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_category);
 		// Posicion particular para esta tabla
-		category_table.getParent().getParent().setBounds(510, 10, 460, 490);
+		categories_table.getParent().getParent().setBounds(510, 10, 460, 490);
 
 	}
 
@@ -836,15 +838,15 @@ public class DynamicSystemView extends AbstractSystemView {
 		txt_profile_id = UIComponentFactory.createTextField(ComponentPosition.ONE);
 		txt_profile_id.setEditable(false);
 		Empleados.add(txt_profile_id);
-		txt_profile_full_name = UIComponentFactory.createTextField(ComponentPosition.TWO);
-		txt_profile_full_name.setEditable(false);
-		Empleados.add(txt_profile_full_name);
+		txt_profile_fullname = UIComponentFactory.createTextField(ComponentPosition.TWO);
+		txt_profile_fullname.setEditable(false);
+		Empleados.add(txt_profile_fullname);
 		txt_profile_address = UIComponentFactory.createTextField(ComponentPosition.THREE);
 		txt_profile_address.setEditable(false);
 		Empleados.add(txt_profile_address);
-		txt_profile_phone = UIComponentFactory.createTextField(ComponentPosition.FOUR);
-		txt_profile_phone.setEditable(false);
-		Empleados.add(txt_profile_phone);
+		txt_profile_telephone = UIComponentFactory.createTextField(ComponentPosition.FOUR);
+		txt_profile_telephone.setEditable(false);
+		Empleados.add(txt_profile_telephone);
 		txt_profile_email = UIComponentFactory.createTextField(ComponentPosition.FIVE);
 		txt_profile_email.setEditable(false);
 		Empleados.add(txt_profile_email);
