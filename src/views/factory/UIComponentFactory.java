@@ -200,9 +200,6 @@ public class UIComponentFactory {
 		return BUTTON_FONT;
 	}
 
-	//
-	//
-	//
 	public static JTextField createFixedSearchButton(JPanel tab_products) {
 		tab_products.add(createCustomLabel(45, 297, 139, 33, "BUSCAR", NORMAL_FONT, SwingConstants.RIGHT, null));
 		JTextField jTextField = new JTextField();

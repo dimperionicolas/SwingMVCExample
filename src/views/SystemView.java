@@ -49,129 +49,8 @@ import models.SuppliersDao;;
 
 public class SystemView extends AbstractSystemView {
 
-//	public JFrame frame;
-//	public JPanel jpanel_products = new JPanel();
-//	public JLabel jlabel_products;
-//	public JPanel jpanel_purchases;
-//	public JLabel jlabel_purchases;
-//	public JPanel jpanel_customers;
-//	public JLabel jlabel_customers;
-//	public JPanel jpanel_employees;
-//	public JLabel jlabel_employees;
-//	public JPanel jpanel_suppliers;
-//	public JLabel jlabel_suppliers;
-//	public JPanel jpanel_categories;
-//	public JLabel jlabel_categories;
-//	public JPanel jpanel_reports;
-//	public JLabel jlabel_reports;
-//	public JPanel jpanel_settings;
-//	public JLabel jlabel_settings;
-//	public JTabbedPane panel_tab_menu_options;
-//	// Product
-//	public JTextField txt_product_search;
-//	public JTable product_table;
-//	public JTextField txt_product_code;
-//	public JTextField txt_product_name;
-//	public JTextField txt_product_unit_price;
-//	public JTextField txt_product_description;
-//	public JTextField txt_product_id;
-//	public JComboBox cmb_product_category;
-//	public JButton btn_product_register;
-//	public JButton btn_product_update;
-//	public JButton btn_product_delete;
-//	public JButton btn_product_cancel;
-//
-//	public JTable purchase_table;
-//	public JTextField txt_purchase_unit_code;
-//	public JTextField txt_purchase_product_name;
-//	public JTextField txt_purchase_amount;
-//	public JTextField txt_purchase_unit_price;
-//	public JComboBox cmb_purchase_supplier;
-//	public JTextField txt_purchase_subtotal;
-//	public JTextField txt_purchase_total;
-//	public JTextField txt_purchase_id;
-//	public JButton btn_purchase_add_to_buy;
-//	public JButton btn_purchase_confirm;
-//	public JButton btn_purchase_remove;
-//	public JButton btn_purchase_new;
-//
-//	public JTextField txt_customer_id;
-//	public JTextField txt_customer_address;
-//	public JTextField txt_customer_telephone;
-//	public JTextField txt_customer_email;
-//	public JTextField txt_customer_fullname;
-//	public JTextField txt_customer_search;
-//	public JButton btn_customer_register;
-//	public JButton btn_customer_update;
-//	public JButton btn_customer_delete;
-//	public JButton btn_customer_cancel;
-//	public JTable customers_table;
-//	public JTextField txt_employee_id;
-//	public JTextField txt_employee_username;
-//	public JTextField txt_employee_address;
-//	public JTextField txt_employee_telephone;
-//	public JTextField txt_employee_fullname;
-//	public JTextField txt_employee_search;
-//	public JComboBox cmb_employee_rol;
-//	public JTable employees_table;
-//	public JTextField txt_employee_email;
-//	public JPasswordField txt_employee_password;
-//	public Color new Color(18, 45, 61);
-	public Color tabPanelBackgourndColor;
-//	public JTable suppliers_table;
-//	public JTextField txt_supplier_name;
-//	public JTextField txt_supplier_address;
-//	public JTextField txt_supplier_telephone;
-//	public JTextField txt_supplier_description;
-//	public JTextField txt_supplier_email;
-//	public JTextField txt_supplier_id;
-//	public JTextField txt_suppliers_search;
-//	public JComboBox cmb_supplier_city;
-//	public JButton btn_supplier_register;
-//	public JButton btn_supplier_update;
-//	public JButton btn_supplier_delete;
-//	public JButton btn_supplier_cancel;
-//	public JTextField txt_category_id;
-//	public JTextField txt_category_name;
-//	public JTextField txt_category_search;
-//	public JButton btn_category_register;
-//	public JButton btn_category_update;
-//	public JButton btn_category_delete;
-//	public JButton btn_category_cancel;
-//	public JTable categories_table;
-//	public JTable report_table;
-//	public JTextField txt_profile_id;
-//	public JTextField txt_profile_address;
-//	public JTextField txt_profile_telephone;
-//	public JTextField txt_profile_email;
-//	public JTextField txt_profile_fullname;
-//	public JPasswordField txt_profile_password_modify;
-//	public JPasswordField txt_profile_modify_confirm;
-//	public JTable sales_table;
-//	public JTextField txt_sale_product_code;
-//	public JTextField txt_sale_product_name;
-//	public JTextField txt_sale_quantity;
-//	public JTextField txt_sale_customer_id;
-//	public JTextField txt_sale_price;
-//	public JTextField txt_sale_product_id;
-//	public JTextField txt_sale_subtotal;
-//	public JTextField txt_sale_customer_name;
-//	public JTextField txt_sale_stock;
-//	public JTextField txt_sale_total_to_pay;
-//	public JTable table;
-//	public JButton btn_employee_register;
-//	public JButton btn_employee_cancel;
-//	public JButton btn_employee_delete;
-//	public JButton btn_employee_update;
-//	//
-//	public JLabel lbl_title_rol_employee;
-//	public JLabel lbl_title_name_employee;
-//	public JButton btn_profile_modify_data;
-//	//
-//	public JButton btn_logout;
-//	public JButton btn_photo;
-	//
-	//
+	public Color tabPanelBackgourndColor = new Color(69, 193, 241);
+
 	Employees employee = new Employees();
 	EmployeesDao employeesDao = new EmployeesDao();
 	//
@@ -250,9 +129,6 @@ public class SystemView extends AbstractSystemView {
 		frame.setBounds(100, 100, 1208, 680);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		// Colores
-		tabPanelBackgourndColor = new Color(69, 193, 241);
 
 		loadLatMenuPanel();
 		loadTopIconPanel();
@@ -347,6 +223,7 @@ public class SystemView extends AbstractSystemView {
 		frame.getContentPane().add(panel_menu);
 		panel_menu.setLayout(null);
 
+		jpanel_products = new JPanel();
 		jpanel_products.setBounds(0, 10, 200, 35);
 		panel_menu.add(jpanel_products);
 		jpanel_products.setLayout(null);

@@ -10,6 +10,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import models.DynamicCombobox;
+
 public abstract class AbstractSystemView extends JFrame {
 
 	public JFrame frame;
@@ -49,7 +51,7 @@ public abstract class AbstractSystemView extends JFrame {
 	public JButton btn_product_cancel;
 	public JTextField txt_product_search;
 	public JTable product_table;
-	public JComboBox cmb_product_category;
+	public JComboBox<DynamicCombobox> cmb_product_category;
 
 	// Purchase
 	public JTextField txt_purchase_unit_code;
