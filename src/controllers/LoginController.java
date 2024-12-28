@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 
 import models.Employees;
 import models.EmployeesDao;
+import views.DynamicSystemView;
 import views.LoginView;
-import views.SystemView;
 
 public class LoginController implements ActionListener {
 
@@ -39,12 +39,12 @@ public class LoginController implements ActionListener {
 				if (employee.getUsername() != null) {
 					// TODO implementar interfaz y agregar la vista dynamic
 					if (employee.getRol().equals("Administrador")) {
-						SystemView admin = new SystemView();
-						// DynamicSystemView admin = new DynamicSystemView();
+//						SystemView admin = new SystemView();
+						DynamicSystemView admin = new DynamicSystemView();
 						admin.setVisible(true);
 					} else {
-						SystemView aux = new SystemView();
-						// DynamicSystemView aux = new DynamicSystemView();
+//						SystemView aux = new SystemView();
+						DynamicSystemView aux = new DynamicSystemView();
 						aux.setVisible(true);
 					}
 					this.login_view.dispose();
