@@ -97,4 +97,9 @@ public class CategoriesDao {
 			return false;
 		}
 	}
+
+	public boolean exists(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

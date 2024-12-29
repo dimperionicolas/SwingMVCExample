@@ -102,8 +102,7 @@ public class SystemView extends AbstractSystemView {
 		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
 		suppliers_account.listAllSuppliers();
 
-		CategoriesController categories_account = new CategoriesController(category, categoryDao, this);
-		categories_account.listAllCategories();
+		CategoriesController categories_account = new CategoriesController(this);
 		ProductsController product_section = new ProductsController(product, productDao, this);
 		product_section.listAllProducts();
 

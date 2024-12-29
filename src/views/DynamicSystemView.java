@@ -110,146 +110,6 @@ public class DynamicSystemView extends AbstractSystemView {
 		FIRSTPOSITION, SECONDPOSITION, THIRDPOSITION, FOURTHPOSITION;
 	}
 
-//	private JFrame frame;
-//	public JPanel jpanel_products;
-//	public JLabel jlabel_products;
-//	public JPanel jpanel_purchases;
-//	public JLabel jlabel_purchases;
-//	public JPanel jpanel_sales;
-//	public JLabel jlabel_sales;
-//	public JPanel jpanel_customers;
-//	public JLabel jlabel_customers;
-//	public JPanel jpanel_employees;
-//	public JLabel jlabel_employees;
-//	public JPanel jpanel_suppliers;
-//	public JLabel jlabel_suppliers;
-//	public JPanel jpanel_categories;
-//	public JLabel jlabel_categories;
-//	public JPanel jpanel_reports;
-//	public JLabel jlabel_reports;
-//	public JPanel jpanel_settings;
-//	public JLabel jlabel_settings;
-//
-//	private JLabel lbl_title_name_employee;
-//	private JLabel lbl_title_rol_employee;
-//
-//	private JButton btn_photo;
-//	private JButton btn_logout;
-//
-//	// Product
-//	private JTextField txt_product_code;
-//	private JTextField txt_product_name;
-//	private JTextField txt_product_unit_price;
-//	private JTextField txt_product_description;
-//	private JTextField txt_product_id;
-//	private JButton btn_product_register;
-//	private JButton btn_product_update;
-//	private JButton btn_product_delete;
-//	private JButton btn_product_cancel;
-//	private JTextField txt_product_search; //sin usar?
-//	private JTable product_table;//sin usar?
-//
-//	// Purchase
-//	private JTextField txt_purchase_unit_code;
-//	private JTextField txt_purchase_product_name;
-//	private JTextField txt_purchase_amount;
-//	private JTextField txt_purchase_unit_price;
-//	private JTextField txt_purchase_supplier;
-//	private JTextField txt_purchase_subtotal;
-//	private JTextField txt_purchase_total;
-//	private JTextField txt_purchase_id;
-//	private JButton btn_purchase_add_to_buy;
-//	private JButton btn_purchase_confirm;
-//	private JButton btn_purchase_remove;
-//	private JButton btn_purchase_new;
-//	private JTable purchase_table;//sin usar?
-//
-//	// Customer
-//	private JTextField txt_customer_id;
-//	private JTextField txt_customer_address;
-//	private JTextField txt_customer_telephone;
-//	private JTextField txt_customer_email;
-//	private JTextField txt_customer_fullname;
-//	private JButton btn_customer_cancel;
-//	private JButton btn_customer_delete;
-//	private JButton btn_customer_update;
-//	private JButton btn_customer_register;
-//	private JTextField txt_customer_search;//sin usar?
-//	private JTable customers_table;//sin usar?
-//
-//	// Employee
-//	private JTextField txt_employee_id;
-//	private JTextField txt_employee_username;
-//	private JTextField txt_employee_address;
-//	private JTextField txt_employee_telephone;
-//	private JTextField txt_employee_fullname;
-//	private JTextField txt_employee_email;
-//	private JPasswordField txt_employee_password;
-//	private JButton btn_employee_cancel;
-//	private JButton btn_employee_delete;
-//	private JButton btn_employee_update;
-//	private JButton btn_employee_register;
-//	private JTextField txt_employee_search;//sin usar?
-//	private JTable employees_table;//sin usar?
-//
-//	// Suppliers
-//	private JTextField txt_supplier_name;
-//	private JTextField txt_supplier_address;
-//	private JTextField txt_supplier_telephone;
-//	private JTextField txt_supplier_description;
-//	private JTextField txt_supplier_email;
-//	private JTextField txt_supplier_id;
-//	private JButton btn_supplier_register;
-//	private JButton btn_supplier_update;
-//	private JButton btn_supplier_delete;
-//	private JButton btn_supplier_cancel;
-//	private JTextField txt_suppliers_search;//sin usar?
-//	private JTable suppliers_table;//sin usar?
-//
-//	// Category
-//	private JTextField txt_category_id;
-//	private JTextField txt_category_name;
-//	private JButton btn_category_register;
-//	private JButton btn_category_update;
-//	private JButton btn_category_delete;
-//	private JTextField txt_category_search;//sin usar?
-//	private JTable categories_table;
-//
-//	// Reports
-//	private JTable purchase_report_table;
-//	private JTable sales_report_table;
-//
-//	// Settings
-//	private JTextField txt_profile_id;
-//	private JTextField txt_profile_address;
-//	private JTextField txt_profile_telephone;
-//	private JTextField txt_profile_email;
-//	private JTextField txt_profile_fullname;
-//	private JPasswordField txt_profile_password_modify;
-//	private JPasswordField txt_profile_modify_confirm;
-//	private JButton btn_profile_modify_data;
-//
-//	// Sales
-//	private JTextField txt_sale_product_code;
-//	private JTextField txt_sale_product_name;
-//	private JTextField txt_sale_quantity;
-//	private JTextField txt_sale_customer_id;
-//	private JTextField txt_sale_price;
-//	private JTextField txt_sale_product_id;
-//	private JTextField txt_sale_subtotal;
-//	private JTextField txt_sale_customer_name;
-//	private JTextField txt_sale_stock;
-//	private JTextField txt_sale_total_to_pay;
-//	private JButton btn_sale_add_product;
-//	private JButton btn_sale_new;
-//	private JButton btn_sale_remove;
-//	private JButton btn_sale_confirm;
-//	private JTable sales_table;//sin usar?
-//	private JComboBox<String> cmb_product_category;
-//	private JComboBox<String> cmb_employee_rol;
-//	public JTabbedPane panel_tab_menu_options;
-//	public JComboBox<String> cmb_supplier_city;
-
 	Employees employee = new Employees();
 	EmployeesDao employeesDao = new EmployeesDao();
 	//
@@ -290,7 +150,8 @@ public class DynamicSystemView extends AbstractSystemView {
 		CustomersController customer_account = new CustomersController(this);
 		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
 
-		CategoriesController categories_account = new CategoriesController(category, categoryDao, this);
+		@SuppressWarnings("unused")
+		CategoriesController categories_account = new CategoriesController(this);
 
 		ProductsController product_section = new ProductsController(product, productDao, this);
 //		product_section.listAllProducts();
@@ -684,8 +545,9 @@ public class DynamicSystemView extends AbstractSystemView {
 		Empleados.add(txt_employee_password);
 
 		List<String> list = new ArrayList<>();
-		list.add("ADMINISTRADOR");
-		list.add("AUXILIAR");
+		list.add("Administrador");
+		list.add("Empleado");
+		list.add("Cliente");
 		cmb_employee_rol = getComboWithValues(list, 160, 177, 180, 20);
 		Empleados.add(cmb_employee_rol);
 
