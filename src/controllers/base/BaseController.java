@@ -39,21 +39,11 @@ public abstract class BaseController implements ActionListener, MouseListener, K
 		}
 	}
 
-	// Método común para mostrar mensajes
-	protected void showMessage(String message) {
-		JOptionPane.showMessageDialog(null, message);
-	}
-
-	// Método común para confirmaciones
-	protected boolean confirmAction(String message) {
-		return JOptionPane.showConfirmDialog(null, message) == 0;
-	}
-
 	// Método común para validar campos vacíos
 	protected boolean validateRequiredFields(String... fields) {
 		for (String field : fields) {
 			if (field == null || field.trim().isEmpty()) {
-				showMessage("Todos los campos son obligatorios");
+				showValidationError("Todos los campos son obligatorios");
 				return false;
 			}
 		}
@@ -63,11 +53,29 @@ public abstract class BaseController implements ActionListener, MouseListener, K
 	protected boolean validateRequiredRowCells(String... fields) {
 		for (String field : fields) {
 			if (field == null || field.trim().isEmpty()) {
-				showMessage("Todos los campos de las celdas son obligatorios");
+				showValidationError("Todos los campos de las celdas son obligatorios");
 				return false;
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Método común para mostrar mensajes genericos
+	 * 
+	 * @param message generico
+	 */
+	protected void showMessage(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+
+	/**
+	 * Método comun para confirmaciones.
+	 * 
+	 * Retorna boolean según respuesta del usuario.
+	 */
+	protected boolean confirmAction(String message) {
+		return JOptionPane.showConfirmDialog(null, message) == 0;
 	}
 
 	protected void showValidationError(String message) {
@@ -78,6 +86,11 @@ public abstract class BaseController implements ActionListener, MouseListener, K
 		JOptionPane.showMessageDialog(views, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Método para mensajes de exito
+	 * 
+	 * @param message
+	 */
 	protected void showSuccess(String message) {
 		JOptionPane.showMessageDialog(views, message, "Éxito", JOptionPane.INFORMATION_MESSAGE);
 	}

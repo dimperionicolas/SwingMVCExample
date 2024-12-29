@@ -70,7 +70,8 @@ public class CustomersController extends BaseController {
 	}
 
 	private void handleRegisterCustomer() throws BusinessException {
-		// Valida campos requeridos. TODO redundante. No es deber del controlador
+		// Valida campos requeridos. TODO redundante. No es deber del controlador?
+		// TODO validar tambien el id?
 		if (!validateCustomerFields()) {
 			return;
 		}
@@ -81,14 +82,14 @@ public class CustomersController extends BaseController {
 	}
 
 	private void handleUpdateCustomer() throws BusinessException {
-		if (!validateSelectedCustomer() || !validateCustomerFields()) {
+		if (!validateSelectedCustomerById() || !validateCustomerFields()) {
 			return;
 		}
 		Customers customerToUpdate = buildCustomerFromFields();
 		customerService.updateCustomer(customerToUpdate);
 		refreshView();
 		views.btn_customer_register.setEnabled(true);
-		showMessage("Datos del cliente modificados con éxito");
+		showSuccess("Datos del cliente modificados con éxito");
 	}
 
 	private void handleDeleteCustomer() throws BusinessException {
@@ -100,13 +101,13 @@ public class CustomersController extends BaseController {
 		if (confirmAction("¿En realidad quieres eliminar a este cliente?")) {
 			customerService.deleteCustomer(id);
 			refreshView();
-			showMessage("Cliente eliminado con éxito");
+			showSuccess("Cliente eliminado con éxito");
 		}
 	}
 
-	private boolean validateSelectedCustomer() {
+	private boolean validateSelectedCustomerById() {
 		if (views.txt_customer_id.getText().equals("")) {
-			showMessage("Seleccione un cliente de la tabla para actualizar");
+			showValidationError("Seleccione un cliente de la tabla para actualizar");
 			return false;
 		}
 		return true;
