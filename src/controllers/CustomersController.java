@@ -8,11 +8,11 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.base.BaseController;
+import dao.CustomersDao;
 import exceptions.BusinessException;
 import models.Customers;
-import models.CustomersDao;
 import services.CustomerService;
-import views.AbstractSystemView;
+import views.base.AbstractSystemView;
 
 public class CustomersController extends BaseController {
 

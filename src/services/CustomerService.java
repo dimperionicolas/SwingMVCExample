@@ -3,11 +3,11 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.CustomersDao;
 import exceptions.BusinessException;
 import exceptions.ErrorCode;
 import exceptions.ValidationException;
 import models.Customers;
-import models.CustomersDao;
 import services.base.BaseService;
 
 public class CustomerService extends BaseService {

@@ -23,8 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import dao.PurchasesDao;
 import models.Purchases;
-import models.PurchasesDao;
 
 public class Print {
 

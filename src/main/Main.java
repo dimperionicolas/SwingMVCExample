@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import models.ConnectionMySQL;
+import utils.ConnectionMySQL;
 import views.LoginView;
 
 public class Main {

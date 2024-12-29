@@ -1,6 +1,6 @@
 package controllers;
 
-import static models.EmployeesDao.rol_user;
+import static dao.EmployeesDao.rol_user;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -16,10 +16,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
-import models.DynamicCombobox;
+import dao.ProductsDao;
 import models.Products;
-import models.ProductsDao;
-import views.AbstractSystemView;
+import utils.DynamicCombobox;
+import views.base.AbstractSystemView;
 
 public class ProductsController implements ActionListener, MouseListener, KeyListener, ChangeListener {
 

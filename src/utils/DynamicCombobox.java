@@ -1,4 +1,4 @@
-package models;
+package utils;
 
 public class DynamicCombobox {
     private int id;

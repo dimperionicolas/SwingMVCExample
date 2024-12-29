@@ -1,10 +1,10 @@
 package controllers;
 
-import static models.EmployeesDao.address_user;
-import static models.EmployeesDao.email_user;
-import static models.EmployeesDao.full_name_user;
-import static models.EmployeesDao.id_user;
-import static models.EmployeesDao.telephone_user;
+import static dao.EmployeesDao.address_user;
+import static dao.EmployeesDao.email_user;
+import static dao.EmployeesDao.full_name_user;
+import static dao.EmployeesDao.id_user;
+import static dao.EmployeesDao.telephone_user;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
-import views.AbstractSystemView;
+import views.base.AbstractSystemView;
 
 public class SettingsController implements MouseListener {
 	private AbstractSystemView views;

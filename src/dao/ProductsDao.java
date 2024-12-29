@@ -1,4 +1,4 @@
-package models;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import models.Products;
+import utils.ConnectionMySQL;
 
 public class ProductsDao {
 

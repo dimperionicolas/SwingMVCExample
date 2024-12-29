@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import exceptions.BusinessException;
 import services.base.BaseService;
-import views.AbstractSystemView;
+import views.base.AbstractSystemView;
 
 //Base controller con funcionalidad común
 public abstract class BaseController implements ActionListener, MouseListener, KeyListener {

@@ -1,7 +1,7 @@
 package controllers;
 
-import static models.EmployeesDao.id_user;
-import static models.EmployeesDao.rol_user;
+import static dao.EmployeesDao.id_user;
+import static dao.EmployeesDao.rol_user;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,13 +15,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import dao.CustomersDao;
+import dao.ProductsDao;
+import dao.SalesDao;
 import models.Customers;
-import models.CustomersDao;
 import models.Products;
-import models.ProductsDao;
 import models.Sales;
-import models.SalesDao;
-import views.AbstractSystemView;
+import views.base.AbstractSystemView;
 
 public class SalesController implements KeyListener, ActionListener, MouseListener {
 

@@ -11,9 +11,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import dao.CustomersDao;
 import models.Customers;
-import models.CustomersDao;
-import views.AbstractSystemView;
+import views.base.AbstractSystemView;
 
 public class CustomersControllerDeprecated implements ActionListener, MouseListener, KeyListener {
 

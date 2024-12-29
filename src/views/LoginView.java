@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controllers.LoginController;
+import dao.EmployeesDao;
 import models.Employees;
-import models.EmployeesDao;
 
 public class LoginView {
 

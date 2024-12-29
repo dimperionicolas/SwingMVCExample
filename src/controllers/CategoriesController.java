@@ -1,6 +1,6 @@
 package controllers;
 
-import static models.EmployeesDao.rol_user;
+import static dao.EmployeesDao.rol_user;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,10 +15,10 @@ import javax.swing.table.DefaultTableModel;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
+import dao.CategoriesDao;
 import models.Categories;
-import models.CategoriesDao;
-import models.DynamicCombobox;
-import views.AbstractSystemView;
+import utils.DynamicCombobox;
+import views.base.AbstractSystemView;
 
 public class CategoriesController implements ActionListener, MouseListener, KeyListener {
 

@@ -1,7 +1,7 @@
 package views;
 
-import static models.EmployeesDao.full_name_user;
-import static models.EmployeesDao.rol_user;
+import static dao.EmployeesDao.full_name_user;
+import static dao.EmployeesDao.rol_user;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -32,20 +32,21 @@ import controllers.PurchasesController;
 import controllers.SalesController;
 import controllers.SettingsController;
 import controllers.SuppliersController;
+import dao.CategoriesDao;
+import dao.CustomersDao;
+import dao.EmployeesDao;
+import dao.ProductsDao;
+import dao.PurchasesDao;
+import dao.SalesDao;
+import dao.SuppliersDao;
 import models.Categories;
-import models.CategoriesDao;
 import models.Customers;
-import models.CustomersDao;
 import models.Employees;
-import models.EmployeesDao;
 import models.Products;
-import models.ProductsDao;
 import models.Purchases;
-import models.PurchasesDao;
 import models.Sales;
-import models.SalesDao;
 import models.Suppliers;
-import models.SuppliersDao;;
+import views.base.AbstractSystemView;;
 
 public class SystemView extends AbstractSystemView {
 

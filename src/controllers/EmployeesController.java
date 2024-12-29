@@ -1,7 +1,7 @@
 package controllers;
 
-import static models.EmployeesDao.id_user;
-import static models.EmployeesDao.rol_user; //Ver si esto en realidad no lo debo cambiar
+import static dao.EmployeesDao.id_user;
+import static dao.EmployeesDao.rol_user;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +14,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import dao.EmployeesDao;
 import models.Employees;
-import models.EmployeesDao;
-import views.AbstractSystemView;
+import views.base.AbstractSystemView;
 
 public class EmployeesController implements ActionListener, MouseListener, KeyListener {
 	private Employees employee;

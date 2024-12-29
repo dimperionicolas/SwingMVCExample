@@ -1,4 +1,4 @@
-package views;
+package views.base;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,7 +10,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import models.DynamicCombobox;
+import utils.DynamicCombobox;
 
 public abstract class AbstractSystemView extends JFrame {
 
