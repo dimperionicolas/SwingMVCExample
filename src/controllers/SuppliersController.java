@@ -16,18 +16,18 @@ import javax.swing.table.DefaultTableModel;
 import models.DynamicCombobox;
 import models.Suppliers;
 import models.SuppliersDao;
-import views.SystemView;
+import views.AbstractSystemView;
 
 public class SuppliersController implements ActionListener, MouseListener, KeyListener {
 
 	private Suppliers supplier;
 	private SuppliersDao supplierDao;
-	private SystemView views;
+	private AbstractSystemView views;
 	String rol = rol_user;
 
 	DefaultTableModel model = new DefaultTableModel();
 
-	public SuppliersController(Suppliers supplier, SuppliersDao supplierDao, SystemView views) {
+	public SuppliersController(Suppliers supplier, SuppliersDao supplierDao, AbstractSystemView views) {
 		this.supplier = supplier;
 		this.supplierDao = supplierDao;
 		this.views = views;
@@ -43,6 +43,8 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 		this.views.txt_suppliers_search.addKeyListener(this);
 		this.views.jlabel_suppliers.addMouseListener(this);
 		getSupplierName();
+		listAllSuppliers();
+
 	}
 
 	@Override
@@ -120,6 +122,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 					cleanFields();
 					// Listar proveedores
 					listAllSuppliers();
+					views.btn_supplier_register.setEnabled(true);
 					JOptionPane.showMessageDialog(null, "Proveedor eliminado con éxito");
 				}
 			}

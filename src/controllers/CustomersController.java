@@ -13,17 +13,17 @@ import javax.swing.table.DefaultTableModel;
 
 import models.Customers;
 import models.CustomersDao;
-import views.SystemView;
+import views.AbstractSystemView;
 
 public class CustomersController implements ActionListener, MouseListener, KeyListener {
 
 	private Customers customer;
 	private CustomersDao customerDao;
-	private SystemView views;
+	private AbstractSystemView views;
 
 	DefaultTableModel model = new DefaultTableModel();
 
-	public CustomersController(Customers customer, CustomersDao customerDao, SystemView views) {
+	public CustomersController(Customers customer, CustomersDao customerDao, AbstractSystemView views) {
 		this.customer = customer;
 		this.customerDao = customerDao;
 		this.views = views;
@@ -39,6 +39,8 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
 		this.views.txt_customer_search.addKeyListener(this);
 		this.views.jlabel_customers.addMouseListener(this);
 		this.views.customers_table.addMouseListener(this);
+		listAllCustomers();
+
 	}
 
 	@Override
@@ -51,15 +53,15 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
 					|| views.txt_customer_email.getText().equals("")) {
 
 				JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
-			} else {
+			} else {// TODO integer error
 				customer.setId(Integer.parseInt(views.txt_customer_id.getText().trim()));
-				// TODO mensaje de error al agregar un valor no numerico, autoincremental?
 				customer.setFull_name(views.txt_customer_fullname.getText().trim());
 				customer.setAddress(views.txt_customer_address.getText().trim());
 				customer.setTelephone(views.txt_customer_telephone.getText().trim());
 				customer.setEmail(views.txt_customer_email.getText().trim());
 
 				if (customerDao.registerCustomerQuery(customer)) {
+					cleanFields();
 					cleanTable();
 					listAllCustomers();
 					JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");

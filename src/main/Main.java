@@ -58,3 +58,11 @@ public class Main {
 		}
 	}
 }
+
+/*
+ * TODO tipo de contenido en diferentes textbox TODO limpiar textbox si se
+ * ingresa incorrecto TODO enter para ingresar TODO correccion de tabulaciones
+ * TODO enter para cada boton segun corresponda TODO sort en las columas tablas
+ * donde corresponda
+ * 
+ */

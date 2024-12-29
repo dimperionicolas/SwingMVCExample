@@ -87,7 +87,7 @@ public class PurchasesDao {
 			while (rs.next()) {
 				Purchases purchase = new Purchases();
 				purchase.setId(rs.getInt("id"));
-				purchase.setSupplier_name_product(rs.getString("supplier_name"));
+				purchase.setSupplier_name_product(rs.getString("suppliers_name"));
 				purchase.setTotal(rs.getDouble("total"));
 				purchase.setCreated(rs.getString("created"));
 				list_purchases.add(purchase);
@@ -106,7 +106,7 @@ public class PurchasesDao {
 				+ "pro.name AS product_name, " + "em.full_name " + "FROM purchases pu "
 				+ "INNER JOIN purchases_details pude ON pu.id = pude.purchase_id "
 				+ "INNER JOIN products pro ON pude.product_id = pro.id "
-				+ "INNER JOIN suppliers suON pu.supplier_id = su.id "
+				+ "INNER JOIN suppliers su ON pu.supplier_id = su.id "
 				+ "INNER JOIN employees em ON pu.employee_id = em.id " + "WHERE pu.id = ?";
 		try {
 			conn = cn.getConnection();
@@ -120,7 +120,7 @@ public class PurchasesDao {
 				purchase.setPurchase_amount(rs.getInt("purchase_amount"));
 				purchase.setPurchase_price(rs.getDouble("purchase_price"));
 				purchase.setPurchase_subtotal(rs.getDouble("purchase_subtotal"));
-				purchase.setSupplier_name_product(rs.getString("supplier_name"));
+				purchase.setSupplier_name_product(rs.getString("suppliers_name"));
 				purchase.setCreated(rs.getString("created"));
 				purchase.setPurchaser(rs.getString("full_name"));
 				list_purchases.add(purchase);

@@ -77,9 +77,7 @@ public class SalesDao {
 	// Listar todas las ventas realizadas
 	public List<Sales> listAllSalesQuery() {
 		List<Sales> list_sales = new ArrayList<>();
-		String query = " " + "SELECT " + "s.id AS invoice, " + "c.full_name AS customer, " + "e.full_name AS employee, "
-				+ "s.total, s.sale_date, " + "FROM sales s " + "INNER JOIN customers c ON s.customer_id = c.id "
-				+ "INNER JOIN employees e ON s.employee_id = e.id " + "ORDER BY s.id ASC";
+		String query = "SELECT s.id AS invoice, c.full_name AS customer, e.full_name AS employee, s.total, s.created FROM sales s INNER JOIN customers c ON s.customer_id = c.id INNER JOIN employees e ON s.employe_id = e.id ORDER BY s.id ASC";
 		try {
 			conn = cn.getConnection();
 			pst = conn.prepareStatement(query);

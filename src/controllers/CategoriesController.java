@@ -18,17 +18,17 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import models.Categories;
 import models.CategoriesDao;
 import models.DynamicCombobox;
-import views.SystemView;
+import views.AbstractSystemView;
 
 public class CategoriesController implements ActionListener, MouseListener, KeyListener {
 
 	private Categories category;
 	private CategoriesDao categoryDao;
-	private SystemView views;
+	private AbstractSystemView views;
 	String rol = rol_user;
 	DefaultTableModel model = new DefaultTableModel();
 
-	public CategoriesController(Categories category, CategoriesDao categoryDao, SystemView views) {
+	public CategoriesController(Categories category, CategoriesDao categoryDao, AbstractSystemView views) {
 		this.category = category;
 		this.categoryDao = categoryDao;
 		this.views = views;
@@ -46,6 +46,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
 		// Carga al iniciar las categorias en el combobox de productos
 		getCategoryName();
 		AutoCompleteDecorator.decorate(views.cmb_product_category);
+		listAllCategories();
+
 	}
 
 	@Override

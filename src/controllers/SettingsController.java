@@ -12,12 +12,12 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
-import views.SystemView;
+import views.AbstractSystemView;
 
 public class SettingsController implements MouseListener {
-	private SystemView views;
+	private AbstractSystemView views;
 
-	public SettingsController(SystemView view) {
+	public SettingsController(AbstractSystemView view) {
 		this.views = view;
 		this.views.jlabel_products.addMouseListener(this);
 		this.views.jlabel_purchases.addMouseListener(this);

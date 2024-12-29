@@ -75,6 +75,19 @@ public class UIComponentFactory {
 
 	// Factory methods for creating components
 
+	/**
+	 * Crea etiqueta con posicion, tamaño, alineacion, fuente y color customizada.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param text
+	 * @param font
+	 * @param alignment
+	 * @param foregroundColor
+	 * @return
+	 */
 	public static JLabel createCustomLabel(int x, int y, int width, int height, String text, Font font, int alignment,
 			Color foregroundColor) {
 		JLabel label = new JLabel(text);
@@ -87,16 +100,10 @@ public class UIComponentFactory {
 		return label;
 	}
 
-	// TODO todo deberia terminar en el custom
 	public static JLabel createLabel(ComponentPosition position, String text) {
 		Bounds bounds = position.labelBounds;
-		// createCustomLabel(bounds.x, bounds.y, bounds.width, bounds.height, text,
-		// null, null, null);
-		JLabel label = new JLabel(text);
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setFont(NORMAL_FONT);
-		label.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
-		return label;
+		return createCustomLabel(bounds.x, bounds.y, bounds.width, bounds.height, text, NORMAL_FONT,
+				SwingConstants.RIGHT, null);
 	}
 
 	public static JLabel createTitleLabel(String text, int x, int y, int width, int height) {

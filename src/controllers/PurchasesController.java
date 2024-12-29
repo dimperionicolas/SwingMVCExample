@@ -20,14 +20,14 @@ import models.Products;
 import models.ProductsDao;
 import models.Purchases;
 import models.PurchasesDao;
+import views.AbstractSystemView;
 import views.Print;
-import views.SystemView;
 
 public class PurchasesController implements KeyListener, ActionListener, MouseListener {
 
 	private Purchases purchase;
 	private PurchasesDao purchaseDao;
-	private SystemView views;
+	private AbstractSystemView views;
 	private int getIdSupplier = 0;
 	private int item = 0;
 	DefaultTableModel model = new DefaultTableModel();
@@ -37,7 +37,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 	ProductsDao productDao = new ProductsDao();
 	String rol = rol_user;
 
-	public PurchasesController(Purchases purchase, PurchasesDao purchaseDao, SystemView views) {
+	public PurchasesController(Purchases purchase, PurchasesDao purchaseDao, AbstractSystemView views) {
 		this.purchase = purchase;
 		this.purchaseDao = purchaseDao;
 		this.views = views;
@@ -52,10 +52,14 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 		this.views.btn_purchase_new.addActionListener(this);
 		this.views.jlabel_purchases.addMouseListener(this);
 		this.views.jlabel_reports.addMouseListener(this);
+		listAllPurchases();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO si no existe el producto, deberia poder comprar y hacer un insert en la
+		// tabla products?
+
 		if (e.getSource() == views.btn_purchase_add_to_buy) {
 			DynamicCombobox supplier_cmb = (DynamicCombobox) views.cmb_purchase_supplier.getSelectedItem();
 			int supplier_id = supplier_cmb.getId();
@@ -84,7 +88,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 						}
 
 						ArrayList list = new ArrayList();
-						item = 1;
+						item += 1;
 						list.add(item);
 						list.add(purchase_id);
 						list.add(product_name);
@@ -156,7 +160,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 	public void listAllPurchases() {
 		if (rol.equals("Administrador".toUpperCase()) || rol.equals("Auxiliar".toUpperCase())) {
 			List<Purchases> list = purchaseDao.listAllPurchasesQuery();
-			model = (DefaultTableModel) views.purchase_table.getModel();
+			model = (DefaultTableModel) views.purchase_report_table.getModel();
 			Object[] row = new Object[4];
 			// Recorrer con ciclo for
 			for (int i = 0; i < list.size(); i++) {
@@ -166,13 +170,14 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 				row[3] = list.get(i).getCreated();
 				model.addRow(row);
 			}
-			views.purchase_table.setModel(model);
+			views.purchase_report_table.setModel(model);
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == views.jlabel_purchases) {
+		Object source = e.getSource();
+		if (source == views.jlabel_purchases) {
 			if (rol.equals("Administrador".toUpperCase())) {
 				views.panel_tab_menu_options.setSelectedIndex(2);
 				cleanTable();

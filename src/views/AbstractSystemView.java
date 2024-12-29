@@ -58,7 +58,7 @@ public abstract class AbstractSystemView extends JFrame {
 	public JTextField txt_purchase_product_name;
 	public JTextField txt_purchase_amount;
 	public JTextField txt_purchase_unit_price;
-	public JTextField txt_purchase_supplier;
+//	public JTextField txt_purchase_supplier;
 	public JTextField txt_purchase_subtotal;
 	public JTextField txt_purchase_total;
 	public JTextField txt_purchase_id;

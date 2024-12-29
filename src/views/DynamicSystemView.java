@@ -19,11 +19,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import controllers.CategoriesController;
+import controllers.CustomersController;
+import controllers.EmployeesController;
+import controllers.ProductsController;
+import controllers.PurchasesController;
+import controllers.SalesController;
+import controllers.SettingsController;
+import controllers.SuppliersController;
 import models.Categories;
 import models.CategoriesDao;
 import models.Customers;
@@ -102,143 +109,145 @@ public class DynamicSystemView extends AbstractSystemView {
 		FIRSTPOSITION, SECONDPOSITION, THIRDPOSITION, FOURTHPOSITION;
 	}
 
-	private JFrame frame;
-	public JPanel jpanel_products;
-	public JLabel jlabel_products;
-	public JPanel jpanel_purchases;
-	public JLabel jlabel_purchases;
-	public JPanel jpanel_sales;
-	public JLabel jlabel_sales;
-	public JPanel jpanel_customers;
-	public JLabel jlabel_customers;
-	public JPanel jpanel_employees;
-	public JLabel jlabel_employees;
-	public JPanel jpanel_suppliers;
-	public JLabel jlabel_suppliers;
-	public JPanel jpanel_categories;
-	public JLabel jlabel_categories;
-	public JPanel jpanel_reports;
-	public JLabel jlabel_reports;
-	public JPanel jpanel_settings;
-	public JLabel jlabel_settings;
-
-	private JLabel lbl_title_name_employee;
-	private JLabel lbl_title_rol_employee;
-
-	private JButton btn_photo;
-	private JButton btn_logout;
-
-	// Product
-	private JTextField txt_product_code;
-	private JTextField txt_product_name;
-	private JTextField txt_product_unit_price;
-	private JTextField txt_product_description;
-	private JTextField txt_product_id;
-	private JButton btn_product_register;
-	private JButton btn_product_update;
-	private JButton btn_product_delete;
-	private JButton btn_product_cancel;
-	private JTextField txt_product_search;
-	private JTable product_table;
-
-	// Purchase
-	private JTextField txt_purchase_unit_code;
-	private JTextField txt_purchase_product_name;
-	private JTextField txt_purchase_amount;
-	private JTextField txt_purchase_unit_price;
-	private JTextField txt_purchase_supplier;
-	private JTextField txt_purchase_subtotal;
-	private JTextField txt_purchase_total;
-	private JTextField txt_purchase_id;
-	private JButton btn_purchase_add_to_buy;
-	private JButton btn_purchase_confirm;
-	private JButton btn_purchase_remove;
-	private JButton btn_purchase_new;
-	private JTable purchase_table;
-
-	// Customer
-	private JTextField txt_customer_id;
-	private JTextField txt_customer_address;
-	private JTextField txt_customer_telephone;
-	private JTextField txt_customer_email;
-	private JTextField txt_customer_fullname;
-	private JButton btn_customer_cancel;
-	private JButton btn_customer_delete;
-	private JButton btn_customer_update;
-	private JButton btn_customer_register;
-	private JTextField txt_customer_search;
-	private JTable customers_table;
-
-	// Employee
-	private JTextField txt_employee_id;
-	private JTextField txt_employee_username;
-	private JTextField txt_employee_address;
-	private JTextField txt_employee_telephone;
-	private JTextField txt_employee_fullname;
-	private JTextField txt_employee_email;
-	private JPasswordField txt_employee_password;
-	private JButton btn_employee_cancel;
-	private JButton btn_employee_delete;
-	private JButton btn_employee_update;
-	private JButton btn_employee_register;
-	private JTextField txt_employee_search;
-	private JTable employees_table;
-
-	// Suppliers
-	private JTextField txt_supplier_name;
-	private JTextField txt_supplier_address;
-	private JTextField txt_supplier_telephone;
-	private JTextField txt_supplier_description;
-	private JTextField txt_supplier_email;
-	private JTextField txt_supplier_id;
-	private JButton btn_supplier_register;
-	private JButton btn_supplier_update;
-	private JButton btn_supplier_delete;
-	private JButton btn_supplier_cancel;
-	private JTextField txt_suppliers_search;
-	private JTable suppliers_table;
-
-	// Category
-	private JTextField txt_category_id;
-	private JTextField txt_category_name;
-	private JButton btn_category_register;
-	private JButton btn_category_update;
-	private JButton btn_category_delete;
-	private JTextField txt_category_search;
-	private JTable categories_table;
-
-	// Reports
-	private JTable purchase_report_table;
-	private JTable sales_report_table;
-
-	// Settings
-	private JTextField txt_profile_id;
-	private JTextField txt_profile_address;
-	private JTextField txt_profile_telephone;
-	private JTextField txt_profile_email;
-	private JTextField txt_profile_fullname;
-	private JPasswordField txt_profile_password_modify;
-	private JPasswordField txt_profile_modify_confirm;
-	private JButton btn_profile_modify_data;
-
-	// Sales
-	private JTextField txt_sale_product_code;
-	private JTextField txt_sale_product_name;
-	private JTextField txt_sale_quantity;
-	private JTextField txt_sale_customer_id;
-	private JTextField txt_sale_price;
-	private JTextField txt_sale_product_id;
-	private JTextField txt_sale_subtotal;
-	private JTextField txt_sale_customer_name;
-	private JTextField txt_sale_stock;
-	private JTextField txt_sale_total_to_pay;
-	private JButton btn_sale_add_product;
-	private JButton btn_sale_new;
-	private JButton btn_sale_remove;
-	private JButton btn_sale_confirm;
-	private JTable sales_table;
-	private JComboBox<String> cmb_product_category;
-	private JComboBox<String> cmb_employee_rol;
+//	private JFrame frame;
+//	public JPanel jpanel_products;
+//	public JLabel jlabel_products;
+//	public JPanel jpanel_purchases;
+//	public JLabel jlabel_purchases;
+//	public JPanel jpanel_sales;
+//	public JLabel jlabel_sales;
+//	public JPanel jpanel_customers;
+//	public JLabel jlabel_customers;
+//	public JPanel jpanel_employees;
+//	public JLabel jlabel_employees;
+//	public JPanel jpanel_suppliers;
+//	public JLabel jlabel_suppliers;
+//	public JPanel jpanel_categories;
+//	public JLabel jlabel_categories;
+//	public JPanel jpanel_reports;
+//	public JLabel jlabel_reports;
+//	public JPanel jpanel_settings;
+//	public JLabel jlabel_settings;
+//
+//	private JLabel lbl_title_name_employee;
+//	private JLabel lbl_title_rol_employee;
+//
+//	private JButton btn_photo;
+//	private JButton btn_logout;
+//
+//	// Product
+//	private JTextField txt_product_code;
+//	private JTextField txt_product_name;
+//	private JTextField txt_product_unit_price;
+//	private JTextField txt_product_description;
+//	private JTextField txt_product_id;
+//	private JButton btn_product_register;
+//	private JButton btn_product_update;
+//	private JButton btn_product_delete;
+//	private JButton btn_product_cancel;
+//	private JTextField txt_product_search; //sin usar?
+//	private JTable product_table;//sin usar?
+//
+//	// Purchase
+//	private JTextField txt_purchase_unit_code;
+//	private JTextField txt_purchase_product_name;
+//	private JTextField txt_purchase_amount;
+//	private JTextField txt_purchase_unit_price;
+//	private JTextField txt_purchase_supplier;
+//	private JTextField txt_purchase_subtotal;
+//	private JTextField txt_purchase_total;
+//	private JTextField txt_purchase_id;
+//	private JButton btn_purchase_add_to_buy;
+//	private JButton btn_purchase_confirm;
+//	private JButton btn_purchase_remove;
+//	private JButton btn_purchase_new;
+//	private JTable purchase_table;//sin usar?
+//
+//	// Customer
+//	private JTextField txt_customer_id;
+//	private JTextField txt_customer_address;
+//	private JTextField txt_customer_telephone;
+//	private JTextField txt_customer_email;
+//	private JTextField txt_customer_fullname;
+//	private JButton btn_customer_cancel;
+//	private JButton btn_customer_delete;
+//	private JButton btn_customer_update;
+//	private JButton btn_customer_register;
+//	private JTextField txt_customer_search;//sin usar?
+//	private JTable customers_table;//sin usar?
+//
+//	// Employee
+//	private JTextField txt_employee_id;
+//	private JTextField txt_employee_username;
+//	private JTextField txt_employee_address;
+//	private JTextField txt_employee_telephone;
+//	private JTextField txt_employee_fullname;
+//	private JTextField txt_employee_email;
+//	private JPasswordField txt_employee_password;
+//	private JButton btn_employee_cancel;
+//	private JButton btn_employee_delete;
+//	private JButton btn_employee_update;
+//	private JButton btn_employee_register;
+//	private JTextField txt_employee_search;//sin usar?
+//	private JTable employees_table;//sin usar?
+//
+//	// Suppliers
+//	private JTextField txt_supplier_name;
+//	private JTextField txt_supplier_address;
+//	private JTextField txt_supplier_telephone;
+//	private JTextField txt_supplier_description;
+//	private JTextField txt_supplier_email;
+//	private JTextField txt_supplier_id;
+//	private JButton btn_supplier_register;
+//	private JButton btn_supplier_update;
+//	private JButton btn_supplier_delete;
+//	private JButton btn_supplier_cancel;
+//	private JTextField txt_suppliers_search;//sin usar?
+//	private JTable suppliers_table;//sin usar?
+//
+//	// Category
+//	private JTextField txt_category_id;
+//	private JTextField txt_category_name;
+//	private JButton btn_category_register;
+//	private JButton btn_category_update;
+//	private JButton btn_category_delete;
+//	private JTextField txt_category_search;//sin usar?
+//	private JTable categories_table;
+//
+//	// Reports
+//	private JTable purchase_report_table;
+//	private JTable sales_report_table;
+//
+//	// Settings
+//	private JTextField txt_profile_id;
+//	private JTextField txt_profile_address;
+//	private JTextField txt_profile_telephone;
+//	private JTextField txt_profile_email;
+//	private JTextField txt_profile_fullname;
+//	private JPasswordField txt_profile_password_modify;
+//	private JPasswordField txt_profile_modify_confirm;
+//	private JButton btn_profile_modify_data;
+//
+//	// Sales
+//	private JTextField txt_sale_product_code;
+//	private JTextField txt_sale_product_name;
+//	private JTextField txt_sale_quantity;
+//	private JTextField txt_sale_customer_id;
+//	private JTextField txt_sale_price;
+//	private JTextField txt_sale_product_id;
+//	private JTextField txt_sale_subtotal;
+//	private JTextField txt_sale_customer_name;
+//	private JTextField txt_sale_stock;
+//	private JTextField txt_sale_total_to_pay;
+//	private JButton btn_sale_add_product;
+//	private JButton btn_sale_new;
+//	private JButton btn_sale_remove;
+//	private JButton btn_sale_confirm;
+//	private JTable sales_table;//sin usar?
+//	private JComboBox<String> cmb_product_category;
+//	private JComboBox<String> cmb_employee_rol;
+//	public JTabbedPane panel_tab_menu_options;
+//	public JComboBox<String> cmb_supplier_city;
 
 	Employees employee = new Employees();
 	EmployeesDao employeesDao = new EmployeesDao();
@@ -260,8 +269,6 @@ public class DynamicSystemView extends AbstractSystemView {
 	//
 	Sales sale = new Sales();
 	SalesDao saleDao = new SalesDao();
-	public JTabbedPane panel_tab_menu_options;
-	public JComboBox<String> cmb_supplier_city;
 
 	/**
 	 * Create the application. Se lanza la aplicacion desde main..
@@ -274,27 +281,22 @@ public class DynamicSystemView extends AbstractSystemView {
 		frame.setLocationRelativeTo(null);
 		frame.repaint();
 		tittleInterface();
-//		SettingsController setting = new SettingsController(this);
-//
-//		EmployeesController employees_account = new EmployeesController(employee, employeesDao, this);
-//		employees_account.listAllEmployees();
-//
-//		CustomersController customer_account = new CustomersController(customer, customerDao, this);
-//		customer_account.listAllCustomers();
-//		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
-//		suppliers_account.listAllSuppliers();
-//
-//		CategoriesController categories_account = new CategoriesController(category, categoryDao, this);
-//		categories_account.listAllCategories();
-//
-//		ProductsController product_section = new ProductsController(product, productDao, this);
+		@SuppressWarnings("unused")
+		SettingsController setting = new SettingsController(this);
+
+		EmployeesController employees_account = new EmployeesController(employee, employeesDao, this);
+
+		CustomersController customer_account = new CustomersController(customer, customerDao, this);
+		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
+
+		CategoriesController categories_account = new CategoriesController(category, categoryDao, this);
+
+		ProductsController product_section = new ProductsController(product, productDao, this);
 //		product_section.listAllProducts();
-//
-//		PurchasesController purchase_section = new PurchasesController(purchase, purchaseDao, this);
-//		purchase_section.listAllPurchases();
-//
-//		SalesController sale_section = new SalesController(sale, saleDao, this);
-//		sale_section.listAllSales();
+
+		PurchasesController purchase_section = new PurchasesController(purchase, purchaseDao, this);
+
+		SalesController sale_section = new SalesController(sale, saleDao, this);
 	}
 
 	public String tittleInterface() {
@@ -508,8 +510,9 @@ public class DynamicSystemView extends AbstractSystemView {
 		NuevaCompra.add(txt_purchase_product_name);
 		txt_purchase_amount = UIComponentFactory.createTextField(ComponentPosition.THREE);
 		NuevaCompra.add(txt_purchase_amount);
-		txt_purchase_supplier = UIComponentFactory.createTextField(ComponentPosition.FOUR);
-		NuevaCompra.add(txt_purchase_supplier);
+
+		cmb_purchase_supplier = UIComponentFactory.createComboBox(List.of(), 160, 177, 180, 20);
+		NuevaCompra.add(cmb_purchase_supplier);
 
 		txt_purchase_unit_price = UIComponentFactory.createTextField(ComponentPosition.SIX);
 		NuevaCompra.add(txt_purchase_unit_price);
@@ -533,8 +536,8 @@ public class DynamicSystemView extends AbstractSystemView {
 		btn_purchase_new = UIComponentFactory.createButton(ButtonPosition.FOURTH, "Nuevo");
 		NuevaCompra.add(btn_purchase_new);
 		//
-		String[] columnNames = { "null", "null", "null", "null" };
-		boolean[] columnEditables = { false, false, false, false };
+		String[] columnNames = { "Id", "Nombre del producto", "Cantidad", "Precio", "Subtotal", "Proveedor" };
+		boolean[] columnEditables = { false, false, false, false, false, false, false };
 		purchase_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_purchases);
 	}
 
@@ -721,6 +724,7 @@ public class DynamicSystemView extends AbstractSystemView {
 		Proveedores.add(txt_supplier_description);
 
 		txt_supplier_id = UIComponentFactory.createTextField(ComponentPosition.EIGHT);
+		txt_supplier_id.setEnabled(false);
 		Proveedores.add(txt_supplier_id);
 
 		List<String> list = new ArrayList<>();
@@ -747,7 +751,7 @@ public class DynamicSystemView extends AbstractSystemView {
 
 	}
 
-	private JComboBox<String> getComboWithValues(List<String> list, int x, int y, int width, int height) {
+	private JComboBox getComboWithValues(List<String> list, int x, int y, int width, int height) {
 		String[] array = new String[0];
 		if (list != null) {
 			array = list.toArray(new String[0]);
@@ -783,6 +787,8 @@ public class DynamicSystemView extends AbstractSystemView {
 		Categorias.add(btn_category_update);
 		btn_category_delete = UIComponentFactory.createCustomButton(120, 200, 210, 35, "Eliminar");
 		Categorias.add(btn_category_delete);
+		btn_category_cancel = UIComponentFactory.createCustomButton(120, 240, 210, 35, "Cancelar");
+		Categorias.add(btn_category_cancel);
 
 		txt_category_search = UIComponentFactory.createFixedSearchButton(tab_category);
 
@@ -799,24 +805,24 @@ public class DynamicSystemView extends AbstractSystemView {
 		JPanel tab_reports = createAndAddPanelTabContainer(panel_tab_menu_options, "Reportes");
 
 //		tab_reports.add(getNewCustomLabel(125, 10, 670, 35, "VENTAS REALIZADAS:", normalFont, CENTER));
-		tab_reports.add(UIComponentFactory.createCustomLabel(125, 10, 670, 35, "VENTAS REALIZADAS:",
+		tab_reports.add(UIComponentFactory.createCustomLabel(125, 10, 670, 35, "COMPRAS REALIZADAS:",
 				UIComponentFactory.getNormalFont(), SwingConstants.CENTER, null));
 
 		String[] columnNames = { "Factura de compra ", "Proveedor", "Total", "Fecha de venta" };
 		boolean[] columnEditables = { false, false, false, false };
 
-		sales_report_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_reports);
-		sales_report_table.getParent().getParent().setBounds(125, 40, 670, 200);
+		purchase_report_table = UIComponentFactory.createTable(columnNames, columnEditables, tab_reports);
+		purchase_report_table.getParent().getParent().setBounds(125, 40, 670, 200);
 		// Pos particular para esta tabla
 //		tab_reports.add(getNewCustomLabel(125, 255, 670, 35, "COMPRAS REALIZADAS:", normalFont, CENTER));
-		tab_reports.add(UIComponentFactory.createCustomLabel(125, 255, 670, 35, "COMPRAS REALIZADAS:",
+		tab_reports.add(UIComponentFactory.createCustomLabel(125, 255, 670, 35, "VENTAS REALIZADAS:",
 				UIComponentFactory.getNormalFont(), SwingConstants.CENTER, null));
 
 		String[] columnNames1 = { "Factura", "Cliente", "Empleado", "Total", "Fecha de venta" };
 		boolean[] columnEditables1 = { false, false, false, false, false };
 		// Posicion particular para esta tabla
-		purchase_report_table = UIComponentFactory.createTable(columnNames1, columnEditables1, tab_reports);
-		purchase_report_table.getParent().getParent().setBounds(125, 285, 670, 200);
+		sales_report_table = UIComponentFactory.createTable(columnNames1, columnEditables1, tab_reports);
+		sales_report_table.getParent().getParent().setBounds(125, 285, 670, 200);
 
 	}
 

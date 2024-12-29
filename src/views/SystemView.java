@@ -72,12 +72,12 @@ public class SystemView extends AbstractSystemView {
 	Sales sale = new Sales();
 	SalesDao saleDao = new SalesDao();
 
-	public JButton btn_sale_add_product;
-	public JButton btn_sale_confirm;
-	public JButton btn_sale_remove;
-	public JButton btn_sale_new;
-	public JPanel jpanel_sales;
-	public JLabel jlabel_sales;
+//	public JButton btn_sale_add_product;
+//	public JButton btn_sale_confirm;
+//	public JButton btn_sale_remove;
+//	public JButton btn_sale_new;
+//	public JPanel jpanel_sales;
+//	public JLabel jlabel_sales;
 	//
 
 	/**
@@ -103,7 +103,6 @@ public class SystemView extends AbstractSystemView {
 
 		CategoriesController categories_account = new CategoriesController(category, categoryDao, this);
 		categories_account.listAllCategories();
-
 		ProductsController product_section = new ProductsController(product, productDao, this);
 		product_section.listAllProducts();
 

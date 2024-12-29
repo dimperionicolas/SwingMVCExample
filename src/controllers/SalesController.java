@@ -21,13 +21,13 @@ import models.Products;
 import models.ProductsDao;
 import models.Sales;
 import models.SalesDao;
-import views.SystemView;
+import views.AbstractSystemView;
 
 public class SalesController implements KeyListener, ActionListener, MouseListener {
 
 	private Sales sale;
 	private SalesDao saleDao;
-	private final SystemView views;
+	private final AbstractSystemView views;
 	Products product = new Products();
 	ProductsDao productDao = new ProductsDao();
 
@@ -38,7 +38,7 @@ public class SalesController implements KeyListener, ActionListener, MouseListen
 	DefaultTableModel temp;
 
 	// Instanciar el modelo productos
-	public SalesController(Sales sale, SalesDao saleDao, SystemView views) {
+	public SalesController(Sales sale, SalesDao saleDao, AbstractSystemView views) {
 		this.sale = sale;
 		this.saleDao = saleDao;
 		this.views = views;
@@ -54,6 +54,7 @@ public class SalesController implements KeyListener, ActionListener, MouseListen
 //		this.views.btn_purchase_new.addActionListener(this);
 		this.views.jlabel_purchases.addMouseListener(this);
 		this.views.jlabel_reports.addMouseListener(this);
+		listAllSales();
 	}
 
 	public void actionPerformed(ActionEvent e) {

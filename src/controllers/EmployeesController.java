@@ -16,16 +16,16 @@ import javax.swing.table.DefaultTableModel;
 
 import models.Employees;
 import models.EmployeesDao;
-import views.SystemView;
+import views.AbstractSystemView;
 
 public class EmployeesController implements ActionListener, MouseListener, KeyListener {
 	private Employees employee;
 	private EmployeesDao employeeDao;
-	private SystemView views;
+	private AbstractSystemView views;
 
 	DefaultTableModel model = new DefaultTableModel();
 
-	public EmployeesController(Employees employee, EmployeesDao employeeDao, SystemView views) {
+	public EmployeesController(Employees employee, EmployeesDao employeeDao, AbstractSystemView views) {
 		this.employee = employee;
 		this.employeeDao = employeeDao;
 		this.views = views;
@@ -44,13 +44,13 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
 		//
 		this.views.employees_table.addMouseListener(this);
 		this.views.txt_employee_search.addKeyListener(this);
+		listAllEmployees();
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO agregar metodos para separar cada evento.
-		// Ver si se puede capturar cada evento como si lo hiciera la vista, esto es muy
-		// feo
 		if (e.getSource() == views.btn_employee_register) {
 			// Verificar si los campos estan vacios
 			if (views.txt_employee_id.getText().equals("") || views.txt_employee_fullname.getText().equals("")
@@ -184,7 +184,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
 			// TODO validar estoy y dar un mensajes de que se deberia cargar cierto valor si
 			// no se encuentra
 			int row = views.employees_table.rowAtPoint(e.getPoint());
-
+			// TODO npe .tostring. Si esta vacio deberia ser que lo arregle o lo elimine
 			views.txt_employee_id.setText(views.employees_table.getValueAt(row, 0).toString());
 			views.txt_employee_fullname.setText(views.employees_table.getValueAt(row, 1).toString());
 			views.txt_employee_username.setText(views.employees_table.getValueAt(row, 2).toString());
