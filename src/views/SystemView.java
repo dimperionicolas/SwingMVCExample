@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.CategoriesController;
-import controllers.CustomersController;
+import controllers.CustomersControllerDeprecated;
 import controllers.EmployeesController;
 import controllers.ProductsController;
 import controllers.PurchasesController;
@@ -96,7 +96,7 @@ public class SystemView extends AbstractSystemView {
 		EmployeesController employees_account = new EmployeesController(employee, employeesDao, this);
 		employees_account.listAllEmployees();
 
-		CustomersController customer_account = new CustomersController(customer, customerDao, this);
+		CustomersControllerDeprecated customer_account = new CustomersControllerDeprecated(customer, customerDao, this);
 		customer_account.listAllCustomers();
 		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
 		suppliers_account.listAllSuppliers();

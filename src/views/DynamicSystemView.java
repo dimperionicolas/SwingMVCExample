@@ -286,7 +286,7 @@ public class DynamicSystemView extends AbstractSystemView {
 
 		EmployeesController employees_account = new EmployeesController(employee, employeesDao, this);
 
-		CustomersController customer_account = new CustomersController(customer, customerDao, this);
+		CustomersController customer_account = new CustomersController(this);
 		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
 
 		CategoriesController categories_account = new CategoriesController(category, categoryDao, this);
