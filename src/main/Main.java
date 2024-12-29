@@ -63,6 +63,6 @@ public class Main {
  * TODO tipo de contenido en diferentes textbox TODO limpiar textbox si se
  * ingresa incorrecto TODO enter para ingresar TODO correccion de tabulaciones
  * TODO enter para cada boton segun corresponda TODO sort en las columas tablas
- * donde corresponda
- * 
+ * donde corresponda TODO para que le paso el modelo y el DAO por constructor si
+ * lo puedo crear en el controlador?
  */

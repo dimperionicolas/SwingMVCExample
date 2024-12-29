@@ -66,7 +66,7 @@ public class CustomersDao {
 			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error al obtener clientes: " + e.toString());
-			return List.of();
+			return null;
 		}
 		return list_customers;
 	}
@@ -104,6 +104,11 @@ public class CustomersDao {
 					"No puedes eliminar un cliente que tenga relacion con otra tabla: " + e.toString());
 			return false;
 		}
+	}
+
+	public boolean exists(int id) {
+		// TODO verificar si existe el empleado en DB
+		return false;
 	}
 
 }
