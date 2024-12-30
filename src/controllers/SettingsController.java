@@ -7,18 +7,24 @@ import static dao.EmployeesDao.id_user;
 import static dao.EmployeesDao.telephone_user;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
+import controllers.base.BaseController;
 import views.base.AbstractSystemView;
 
-public class SettingsController implements MouseListener {
+public class SettingsController extends BaseController {
 	private AbstractSystemView views;
 
 	public SettingsController(AbstractSystemView view) {
-		this.views = view;
+		super(view);
+		profile();
+	}
+
+	@Override
+	protected void initializeListeners() {
 		this.views.jlabel_products.addMouseListener(this);
 		this.views.jlabel_purchases.addMouseListener(this);
 		this.views.jlabel_customers.addMouseListener(this);
@@ -27,34 +33,16 @@ public class SettingsController implements MouseListener {
 		this.views.jlabel_categories.addMouseListener(this);
 		this.views.jlabel_reports.addMouseListener(this);
 		this.views.jlabel_settings.addMouseListener(this);
-		Profile();
+
 	}
 
 	// Asignar el perfil del usuario
-	public void Profile() {
+	public void profile() {
 		this.views.txt_profile_id.setText("" + id_user);
 		this.views.txt_profile_fullname.setText(full_name_user);
 		this.views.txt_profile_address.setText(address_user);
 		this.views.txt_profile_telephone.setText(telephone_user);
 		this.views.txt_profile_email.setText(email_user);
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -72,6 +60,16 @@ public class SettingsController implements MouseListener {
 			((JLabel) componente).getParent().setBackground(new Color(18, 45, 61));
 
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		throw new UnsupportedOperationException("Sin funcionalidad.");
+	}
+
+	@Override
+	protected void cleanFields() {
+		throw new UnsupportedOperationException("Sin funcionalidad.");
 	}
 
 }
