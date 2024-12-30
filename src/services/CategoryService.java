@@ -24,21 +24,22 @@ public class CategoryService extends BaseService {
 					ErrorCode.DUPLICATE_ENTITY);
 		}
 		if (!categoryDao.registerCategoryQuery(category)) {
-			throw new BusinessException("Error al registrar el cliente en la base de datos", ErrorCode.DATABASE_ERROR);
+			throw new BusinessException("Error al registrar la categoría en la base de datos.",
+					ErrorCode.DATABASE_ERROR);
 		}
 	}
 
 	public void updateCategory(Categories category) throws BusinessException {
 		validateCategory(category);
 		if (!categoryDao.updateCategoryQuery(category)) {
-			throw new BusinessException("Ha ocurrido un error al modificar los datos del cliente",
+			throw new BusinessException("Ha ocurrido un error al modificar los datos de la categoría.",
 					ErrorCode.DATABASE_ERROR);
 		}
 	}
 
 	public void deleteCategory(int id) throws BusinessException {
 		if (!categoryDao.deleteCategoryQuery(id)) {
-			throw new BusinessException("Ha ocurrido un error al eliminar al cliente", ErrorCode.DATABASE_ERROR);
+			throw new BusinessException("Ha ocurrido un error al eliminar la categoría.", ErrorCode.DATABASE_ERROR);
 		}
 	}
 
@@ -47,7 +48,7 @@ public class CategoryService extends BaseService {
 			throw new ValidationException("La categoría no puede ser nula");
 		}
 		if (category.getName() == null || category.getName().trim().isEmpty()) {
-			throw new ValidationException("El nombre completo es requerido");
+			throw new ValidationException("El nombre es requerido");
 		}
 	}
 
@@ -55,9 +56,8 @@ public class CategoryService extends BaseService {
 	public List<?> listAllElements(String text) throws BusinessException {
 		List<Categories> list = categoryDao.listCategoriesQuery(text);
 		if (list == null) {
-			throw new BusinessException("Ha ocurrido un error al listar clientes", ErrorCode.DATABASE_ERROR);
+			throw new BusinessException("Ha ocurrido un error al listar las categorias", ErrorCode.DATABASE_ERROR);
 		}
 		return list;
 	}
-
 }
