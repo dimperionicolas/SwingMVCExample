@@ -97,6 +97,7 @@ public class CategoriesController extends BaseController {
 			return;
 		}
 		Categories categoryToUpdate = buildCategoryFromFields();
+		categoryToUpdate.setId(Integer.parseInt(views.txt_category_id.getText().trim()));
 		categoryService.updateCategory(categoryToUpdate);
 		refreshView();
 		views.btn_customer_register.setEnabled(true);
@@ -123,7 +124,6 @@ public class CategoriesController extends BaseController {
 
 	private Categories buildCategoryFromFields() {
 		Categories category = new Categories();
-		category.setId(Integer.parseInt(views.txt_category_id.getText().trim()));
 		category.setName(views.txt_category_name.getText().trim());
 		return category;
 	}
