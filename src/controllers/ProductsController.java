@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import controllers.base.BaseController;
 import dao.ProductsDao;
 import exceptions.BusinessException;
-import models.Customers;
 import models.Products;
 import services.ProductService;
 import utils.DynamicCombobox;
@@ -25,7 +24,6 @@ public class ProductsController extends BaseController implements ChangeListener
 //	private Products product;
 	private ProductsDao productDao;
 	private ProductService productService;
-	private AbstractSystemView views;
 	String rol = rol_user;
 //	DefaultTableModel model = new DefaultTableModel();
 
@@ -39,26 +37,26 @@ public class ProductsController extends BaseController implements ChangeListener
 
 	@Override
 	protected void initializeListeners() {
-		this.views.btn_product_register.addActionListener(this);
-		this.views.btn_product_update.addActionListener(this);
-		this.views.btn_product_delete.addActionListener(this);
-		this.views.btn_product_cancel.addActionListener(this);
-		this.views.product_table.addMouseListener(this);
-		this.views.panel_tab_menu_options.addChangeListener(this);
-		this.views.txt_product_search.addKeyListener(this);
-		this.views.jlabel_products.addMouseListener(this);
+		views.btn_product_register.addActionListener(this);
+		views.btn_product_update.addActionListener(this);
+		views.btn_product_delete.addActionListener(this);
+		views.btn_product_cancel.addActionListener(this);
+		views.product_table.addMouseListener(this);
+		views.panel_tab_menu_options.addChangeListener(this);
+		views.txt_product_search.addKeyListener(this);
+		views.jlabel_products.addMouseListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			if (e.getSource() == views.btn_customer_register) {
+			if (e.getSource() == views.btn_product_register) {
 				handleRegisterProduct();
-			} else if (e.getSource() == views.btn_customer_update) {
+			} else if (e.getSource() == views.btn_product_update) {
 				handleUpdateProduct();
-			} else if (e.getSource() == views.btn_customer_delete) {
+			} else if (e.getSource() == views.btn_product_delete) {
 				handleDeleteProduct();
-			} else if (e.getSource() == views.btn_customer_cancel) {
+			} else if (e.getSource() == views.btn_product_cancel) {
 				handleCancel();
 			}
 		} catch (BusinessException ex) {
@@ -262,7 +260,7 @@ public class ProductsController extends BaseController implements ChangeListener
 	@SuppressWarnings("unchecked")
 	private List<Products> getListForTable() throws BusinessException {
 		List<?> listAll = listAllElements(productService, views.txt_product_search.getText());
-		if (listAll.isEmpty() || listAll.get(0) instanceof Customers) {
+		if (listAll.isEmpty() || listAll.get(0) instanceof Products) {
 			return (List<Products>) listAll;
 		}
 		throw new BusinessException("Error al obtener los elementos");

@@ -61,7 +61,7 @@ public class CategoriesController extends BaseController {
 		} catch (BusinessException ex) {
 			switch (ex.getErrorCode()) {
 			case DUPLICATE_ENTITY:
-				showError("Cliente duplicado", ex.getMessage());
+				showError("Categoría duplicada", ex.getMessage());
 				break;
 			case DATABASE_ERROR:
 				showError("Error de base de datos", ex.getMessage());
@@ -88,7 +88,7 @@ public class CategoriesController extends BaseController {
 			categoryService.deleteCategory(id);
 			refreshView();
 			views.btn_category_register.setEnabled(true);
-			showSuccess("Cliente eliminado con éxito");
+			showSuccess("Categpría eliminada con éxito");
 		}
 	}
 
@@ -101,7 +101,7 @@ public class CategoriesController extends BaseController {
 		categoryService.updateCategory(categoryToUpdate);
 		refreshView();
 		views.btn_customer_register.setEnabled(true);
-		showSuccess("Datos del cliente modificados con éxito");
+		showSuccess("Datos de la categoría modificadas con éxito");
 	}
 
 	private boolean validateSelectedCategoryById() {

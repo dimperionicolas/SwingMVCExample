@@ -16,7 +16,6 @@ import controllers.base.BaseController;
 import views.base.AbstractSystemView;
 
 public class SettingsController extends BaseController {
-	private AbstractSystemView views;
 
 	public SettingsController(AbstractSystemView view) {
 		super(view);
@@ -25,14 +24,14 @@ public class SettingsController extends BaseController {
 
 	@Override
 	protected void initializeListeners() {
-		this.views.jlabel_products.addMouseListener(this);
-		this.views.jlabel_purchases.addMouseListener(this);
-		this.views.jlabel_customers.addMouseListener(this);
-		this.views.jlabel_employees.addMouseListener(this);
-		this.views.jlabel_suppliers.addMouseListener(this);
-		this.views.jlabel_categories.addMouseListener(this);
-		this.views.jlabel_reports.addMouseListener(this);
-		this.views.jlabel_settings.addMouseListener(this);
+		views.jlabel_products.addMouseListener(this);
+		views.jlabel_purchases.addMouseListener(this);
+		views.jlabel_customers.addMouseListener(this);
+		views.jlabel_employees.addMouseListener(this);
+		views.jlabel_suppliers.addMouseListener(this);
+		views.jlabel_categories.addMouseListener(this);
+		views.jlabel_reports.addMouseListener(this);
+		views.jlabel_settings.addMouseListener(this);
 
 	}
 

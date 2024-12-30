@@ -64,5 +64,6 @@ public class Main {
  * ingresa incorrecto TODO enter para ingresar TODO correccion de tabulaciones
  * TODO enter para cada boton segun corresponda TODO sort en las columas tablas
  * donde corresponda TODO para que le paso el modelo y el DAO por constructor si
- * lo puedo crear en el controlador?
+ * lo puedo crear en el controlador? TODO si ya envio errores desde el DAO,
+ * deberia enviar los errores personalizados?
  */
