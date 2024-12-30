@@ -195,4 +195,9 @@ public class ProductsDao {
 
 	}
 
+	public boolean exists(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
