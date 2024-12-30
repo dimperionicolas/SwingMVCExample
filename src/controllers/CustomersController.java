@@ -70,8 +70,6 @@ public class CustomersController extends BaseController {
 	}
 
 	private void handleRegisterCustomer() throws BusinessException {
-		// Valida campos requeridos. TODO redundante. No es deber del controlador?
-		// TODO validar tambien el id?
 		if (!validateCustomerFields()) {
 			return;
 		}
@@ -86,6 +84,7 @@ public class CustomersController extends BaseController {
 			return;
 		}
 		Customers customerToUpdate = buildCustomerFromFields();
+		customerToUpdate.setId(Integer.parseInt(views.txt_customer_id.getText().trim()));
 		customerService.updateCustomer(customerToUpdate);
 		refreshView();
 		views.btn_customer_register.setEnabled(true);
@@ -114,10 +113,7 @@ public class CustomersController extends BaseController {
 	}
 
 	private Customers buildCustomerFromFields() {
-		// Ya se validaron que existan. TODO validar por tipo aca o en el servicio.
-		// Lo que salte primero
 		Customers customer = new Customers();
-		customer.setId(Integer.parseInt(views.txt_customer_id.getText().trim()));
 		customer.setFull_name(views.txt_customer_fullname.getText().trim());
 		customer.setAddress(views.txt_customer_address.getText().trim());
 		customer.setTelephone(views.txt_customer_telephone.getText().trim());
@@ -126,9 +122,8 @@ public class CustomersController extends BaseController {
 	}
 
 	private boolean validateCustomerFields() {
-		return validateRequiredFields(views.txt_customer_id.getText(), views.txt_customer_fullname.getText(),
-				views.txt_customer_address.getText(), views.txt_customer_telephone.getText(),
-				views.txt_customer_email.getText());
+		return validateRequiredFields(views.txt_customer_fullname.getText(), views.txt_customer_address.getText(),
+				views.txt_customer_telephone.getText(), views.txt_customer_email.getText());
 	}
 
 	private boolean validateCustomerTableRowCells(int row) {
