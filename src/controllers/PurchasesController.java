@@ -4,165 +4,156 @@ import static dao.EmployeesDao.id_user;
 import static dao.EmployeesDao.rol_user;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import controllers.base.BaseController;
 import dao.ProductsDao;
 import dao.PurchasesDao;
+import exceptions.BusinessException;
+import exceptions.ValidationException;
 import models.Products;
 import models.Purchases;
+import services.PurchaseService;
 import utils.DynamicCombobox;
-import views.Print;
 import views.base.AbstractSystemView;
 
-public class PurchasesController implements KeyListener, ActionListener, MouseListener {
+public class PurchasesController extends BaseController {
 
-	private Purchases purchase;
-	private PurchasesDao purchaseDao;
-	private AbstractSystemView views;
-	private int getIdSupplier = 0;
-	private int item = 0;
-	DefaultTableModel model = new DefaultTableModel();
+	private final PurchasesDao purchaseDao;
+	private final PurchaseService purchaseService;
 	DefaultTableModel temp;
-	// Instanciar el modelo productos
-	Products product = new Products();
-	ProductsDao productDao = new ProductsDao();
-	String rol = rol_user;
+	ProductsDao productDao; // TODO eliminar esto
 
-	public PurchasesController(Purchases purchase, PurchasesDao purchaseDao, AbstractSystemView views) {
-		this.purchase = purchase;
-		this.purchaseDao = purchaseDao;
-		this.views = views;
-		// Botón de agregar
-		this.views.btn_purchase_add_to_buy.addActionListener(this);
-		// Botón de comprar
-		this.views.btn_purchase_confirm.addActionListener(this);
-		// Botón de eliminar compra
-		this.views.btn_purchase_remove.addActionListener(this);
-		this.views.txt_purchase_unit_code.addKeyListener(this);
-		this.views.txt_purchase_unit_price.addKeyListener(this);
-		this.views.btn_purchase_new.addActionListener(this);
-		this.views.jlabel_purchases.addMouseListener(this);
-		this.views.jlabel_reports.addMouseListener(this);
-		listAllPurchases();
+	public PurchasesController(AbstractSystemView views) {
+		super(views);
+		this.purchaseDao = new PurchasesDao();
+		this.productDao = new ProductsDao();
+
+		this.purchaseService = new PurchaseService(purchaseDao);
+		listAllPurchasesOnReportTable();
+	}
+
+	@Override
+	protected void initializeListeners() {
+		views.btn_purchase_add_to_buy.addActionListener(this);
+		views.btn_purchase_confirm.addActionListener(this);
+		views.btn_purchase_remove.addActionListener(this);
+		views.txt_purchase_unit_code.addKeyListener(this);
+		views.txt_purchase_unit_price.addKeyListener(this);
+		views.btn_purchase_new.addActionListener(this);
+		views.jlabel_purchases.addMouseListener(this);
+		views.jlabel_reports.addMouseListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO si no existe el producto, deberia poder comprar y hacer un insert en la
-		// tabla products?
-
-		if (e.getSource() == views.btn_purchase_add_to_buy) {
-			DynamicCombobox supplier_cmb = (DynamicCombobox) views.cmb_purchase_supplier.getSelectedItem();
-			int supplier_id = supplier_cmb.getId();
-
-			if (getIdSupplier == 0) {
-				getIdSupplier = supplier_id;
-			} else {
-				if (getIdSupplier != supplier_id) {
-					JOptionPane.showMessageDialog(null, "No puede realizar una misma compra a varios proveedores");
-				} else {
-					int amount = Integer.parseInt(views.txt_purchase_amount.getText());
-					String product_name = views.txt_purchase_product_name.getText();
-					double price = Double.parseDouble(views.txt_purchase_unit_price.getText());
-					int purchase_id = Integer.parseInt(views.txt_purchase_id.getText());
-					String supplier_name = views.cmb_purchase_supplier.getSelectedItem().toString();
-
-					if (amount > 0) {
-						temp = (DefaultTableModel) views.purchase_table.getModel();
-						for (int i = 0; i < views.purchase_table.getRowCount(); i++) {
-							if (views.purchase_table.getValueAt(i, 1)
-									.equals(views.txt_purchase_product_name.getText())) {
-								JOptionPane.showMessageDialog(null,
-										"El producto ya esta registrado en la tabla de compras");
-								return;
-							}
-						}
-
-						ArrayList list = new ArrayList();
-						item += 1;
-						list.add(item);
-						list.add(purchase_id);
-						list.add(product_name);
-						list.add(amount);
-						list.add(price);
-						list.add(amount * price);
-						list.add(supplier_name);
-
-						Object[] obj = new Object[6];
-						obj[0] = list.get(1);
-						obj[1] = list.get(2);
-						obj[2] = list.get(3);
-						obj[3] = list.get(4);
-						obj[4] = list.get(5);
-						obj[5] = list.get(6);
-						temp.addRow(obj);
-						views.purchase_table.setModel(temp);
-						cleanFieldsPurchases();
-						views.cmb_purchase_supplier.setEditable(false);
-						views.txt_purchase_unit_code.requestFocus();
-						calculatePurchase();
-					}
-				}
+		try {
+			if (e.getSource() == views.btn_purchase_add_to_buy) {
+				addProductsToBuy();
+			} else if (e.getSource() == views.btn_purchase_confirm) {
+				confirmPurchase();
+			} else if (e.getSource() == views.btn_purchase_remove) {
+				removeElementFromList();
+			} else if (e.getSource() == views.btn_purchase_new) {
+				startNewList();
 			}
-		} else if (e.getSource() == views.btn_purchase_confirm) {
-			insertPurchase();
-		} else if (e.getSource() == views.btn_purchase_remove) {
-			model = (DefaultTableModel) views.purchase_table.getModel();
-			model.removeRow(views.purchase_table.getSelectedRow());
-			calculatePurchase();
-			views.txt_purchase_unit_code.requestFocus();
-		} else if (e.getSource() == views.btn_purchase_new) {
-			cleanTableTemp();
-			cleanFieldsPurchases();
+		} catch (BusinessException ex) {
+			switch (ex.getErrorCode()) {
+			case DUPLICATE_ENTITY:
+				showError("Cliente duplicado", ex.getMessage());
+				break;
+			case DATABASE_ERROR:
+				showError("Error de base de datos", ex.getMessage());
+				logError(ex);
+				break;
+			default:
+				showError("Error", ex.getMessage());
+			}
 		}
 	}
 
-	private void insertPurchase() {
-		double total = Double.parseDouble(views.txt_purchase_total.getText());
-		int employee_id = id_user;
+	private void startNewList() {
+		refreshView();
+		unlockSupplier();
+		purchaseService.clearSupplier();
+	}
 
-		if (purchaseDao.registerPurchaseQuery(getIdSupplier, employee_id, total)) {
-			int purchase_id = purchaseDao.purchaseId();
-			for (int i = 0; i < views.purchase_table.getRowCount(); i++) {
-				int product_id = Integer.parseInt(views.purchase_table.getValueAt(i, 0).toString());
-				int purchase_amount = Integer.parseInt(views.purchase_table.getValueAt(i, 2).toString());
-				double purchase_price = Double.parseDouble(views.purchase_table.getValueAt(i, 3).toString());
-				double purchase_subtotal = purchase_price * purchase_amount;
+	private void removeElementFromList() {
+		model = (DefaultTableModel) views.purchase_table.getModel();
+		model.removeRow(views.purchase_table.getSelectedRow());
+		calculatePurchase();
+		views.txt_purchase_unit_code.requestFocus();
+	}
 
-				// Registrar detalles de la compra
-				purchaseDao.registerPurchaseDetailQuery(purchase_id, purchase_price, purchase_amount, purchase_subtotal,
-						product_id);
+	private void addProductsToBuy() throws ValidationException {
+		DynamicCombobox supplier_cmb = (DynamicCombobox) views.cmb_purchase_supplier.getSelectedItem();
+		purchaseService.isValidSupplier(supplier_cmb.getId());
+		if (!validatePurchaseFields()) {
+			return;
+		}
+		verifyNoDuplicateProduct();
+		int amount = purchaseService.checkAndGetAmount(views.txt_purchase_amount.getText());
+		int purchase_product_id = purchaseService.checkAndGetId(views.txt_purchase_product_id.getText());
+		double price = purchaseService.checkAndGetPrices(views.txt_purchase_unit_price.getText());
+		String product_name = views.txt_purchase_product_name.getText();
+		String supplier_name = supplier_cmb.getName();
+		addTemporalProductToTable(amount, purchase_product_id, product_name, price, supplier_name);
+		cleanFields();
+		lockSupplier();
+		calculatePurchase();
+		views.txt_purchase_unit_code.requestFocus();
+	}
 
-				// Traer la cantidad de productos
-				product = productDao.searchId(product_id);
-				int amount = product.getProduct_quantity() + purchase_amount;
-
-				productDao.updateStockQuery(amount, product_id);
+	private void verifyNoDuplicateProduct() throws ValidationException {
+		for (int i = 0; i < views.purchase_table.getRowCount(); i++) {
+			if (views.purchase_table.getValueAt(i, 1).equals(views.txt_purchase_product_name.getText())) {
+				throw new ValidationException("El producto ya esta registrado en la tabla de compras");
 			}
-			cleanTableTemp();
-			cleanFieldsPurchases();
-			JOptionPane.showMessageDialog(null, "Compra generada con éxito");
-			Print print = new Print(purchase_id);
-			print.setVisible(true);
 		}
 	}
 
-	// Método para listar las compras realizadas
-	public void listAllPurchases() {
-		if (rol.equals("Administrador".toUpperCase()) || rol.equals("Auxiliar".toUpperCase())) {
-			List<Purchases> list = purchaseDao.listAllPurchasesQuery();
+	private void confirmPurchase() throws BusinessException {
+		purchaseService.registerPurchase(id_user, views.txt_purchase_total.getText());
+		int purchase_id = purchaseService.purchaseLastId();
+		for (int i = 0; i < views.purchase_table.getRowCount(); i++) {
+			registerPurchaseDetail(purchase_id, i);
+			updateProductStock(i);
+		}
+		refreshView();
+		showSuccess("Compra generada con éxito");
+		print(purchase_id);
+	}
+
+	private void updateProductStock(int i) {
+		int product_id = Integer.parseInt(views.purchase_table.getValueAt(i, 0).toString());
+		// TODO obtener el ProductService desde alguna factory tal vez.
+		// No instanciar una nueva
+		Products product = productDao.searchId(product_id);
+		int purchase_amount = Integer.parseInt(views.purchase_table.getValueAt(i, 2).toString());
+		int amount = product.getProduct_quantity() + purchase_amount;
+		productDao.updateStockQuery(amount, product_id);
+	}
+
+	private void registerPurchaseDetail(int purchase_id, int i) throws BusinessException {
+		int product_id = Integer.parseInt(views.purchase_table.getValueAt(i, 0).toString());
+		int purchase_amount = Integer.parseInt(views.purchase_table.getValueAt(i, 2).toString());
+		double purchase_price = Double.parseDouble(views.purchase_table.getValueAt(i, 3).toString());
+		double purchase_subtotal = purchase_price * purchase_amount;
+		purchaseService.registerPurchaseDetailQuery(purchase_id, purchase_price, purchase_amount, purchase_subtotal,
+				product_id);
+	}
+
+	// Método para listar reporte de las compras realizadas
+	public void listAllPurchasesOnReportTable() {
+		try {
+			List<Purchases> list = getListForTable();
 			model = (DefaultTableModel) views.purchase_report_table.getModel();
 			Object[] row = new Object[4];
-			// Recorrer con ciclo for
 			for (int i = 0; i < list.size(); i++) {
 				row[0] = list.get(i).getId();
 				row[1] = list.get(i).getSupplier_name_product();
@@ -171,14 +162,26 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 				model.addRow(row);
 			}
 			views.purchase_report_table.setModel(model);
+		} catch (BusinessException ex) {
+			showError("Error", ex.getMessage());
 		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<Purchases> getListForTable() throws BusinessException {
+		List<?> listAll = listAllElements(purchaseService, "");
+		if (listAll.isEmpty() || listAll.get(0) instanceof Purchases) {
+			return (List<Purchases>) listAll;
+		}
+		throw new BusinessException("Error al obtener los elementos");
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object source = e.getSource();
 		if (source == views.jlabel_purchases) {
-			if (rol.equals("Administrador".toUpperCase())) {
+			if (rol_user.equals("Administrador".toUpperCase())) {// TODO validacion de permisos
 				views.panel_tab_menu_options.setSelectedIndex(2);
 				cleanTable();
 			} else {
@@ -189,7 +192,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 		} else if (e.getSource() == views.jlabel_reports) {
 			views.panel_tab_menu_options.setSelectedIndex(7);
 			cleanTable();
-			listAllPurchases();
+			listAllPurchasesOnReportTable();
 		}
 	}
 
@@ -198,12 +201,13 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 		if (e.getSource() == views.txt_purchase_unit_code) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (views.txt_purchase_unit_code.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Ingresa el código del producto a comprar");
+					showValidationError("Ingresa el código del producto a comprar");
 				} else {
 					int id = Integer.parseInt(views.txt_purchase_unit_code.getText());
-					product = productDao.searchCode(id);
+					// TODO obtener productService. Se chequea luego pero no agregar si no existe
+					Products product = productDao.searchCode(id);
 					views.txt_purchase_product_name.setText(product.getName());
-					views.txt_purchase_id.setText("" + product.getId());
+					views.txt_purchase_product_id.setText("" + product.getId());
 					views.txt_purchase_amount.requestFocus();
 				}
 			}
@@ -215,7 +219,6 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 		if (e.getSource() == views.txt_purchase_unit_price) {
 			int quantity;
 			double price = 0.0;
-
 			if (views.txt_purchase_amount.getText().equals("")) {
 				quantity = 1;
 				views.txt_purchase_unit_price.setText("" + price);
@@ -227,26 +230,19 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 		}
 	}
 
-	// Limpiar campos
-	public void cleanFieldsPurchases() {
-		views.txt_purchase_product_name.setText("");
-		views.txt_purchase_unit_price.setText("");
-		views.txt_purchase_amount.setText("");
-		views.txt_purchase_unit_code.setText("");
-		views.txt_purchase_subtotal.setText("");
-		views.txt_purchase_id.setText("");
-		views.txt_purchase_total.setText("");
-	}
-
 	// Calcular total a pagar
-	public void calculatePurchase() {
+	public void calculatePurchase() { // TODO el total lo podria tener el servicio
 		double total = 0.00;
 		int numRow = views.purchase_table.getRowCount();
 		for (int i = 0; i < numRow; i++) {
-			// Pasar el indice de la columna que se sumará
 			total = total + Double.parseDouble(String.valueOf(views.purchase_table.getValueAt(i, 4)));
 		}
 		views.txt_purchase_total.setText("" + total);
+	}
+
+	private boolean validatePurchaseFields() {
+		return validateRequiredFields(views.txt_purchase_amount.getText(), views.txt_purchase_product_name.getText(),
+				views.txt_purchase_unit_price.getText(), views.txt_purchase_product_id.getText());
 	}
 
 	// Limpiar tabla temporal
@@ -266,27 +262,49 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-
+	protected void cleanFields() {
+		views.txt_purchase_product_name.setText("");
+		views.txt_purchase_unit_price.setText("");
+		views.txt_purchase_amount.setText("");
+		views.txt_purchase_unit_code.setText("");
+		views.txt_purchase_subtotal.setText("");
+		views.txt_purchase_product_id.setText("");
+		views.txt_purchase_total.setText("");
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
+	private void refreshView() {
+		cleanTableTemp();
+		cleanFields();
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
+	private void lockSupplier() {
+		views.cmb_purchase_supplier.setEditable(false);
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-
+	private void unlockSupplier() {
+		views.cmb_purchase_supplier.setEditable(true);
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-
+	private void addTemporalProductToTable(int amount, int purchase_id, String product_name, double price,
+			String supplier_name) {
+		temp = (DefaultTableModel) views.purchase_table.getModel();
+		// TODO temp es necesario? Podria ser model.
+		// item += 1; // TODO este item para que lo quiero?
+		Object[] obj = new Object[6];
+		obj[0] = purchase_id;
+		obj[1] = product_name;
+		obj[2] = amount;
+		obj[3] = price;
+		double total = amount * price;
+		obj[4] = total;
+		obj[5] = supplier_name;
+		temp.addRow(obj);
+		views.purchase_table.setModel(temp);
 	}
+
+	private void print(int purchase_id) {
+		// Print print = new Print(purchase_id);
+		// print.setVisible(true);
+	}
+
 }

@@ -151,12 +151,12 @@ public class DynamicSystemView extends AbstractSystemView {
 		CustomersController customer_account = new CustomersController(this);
 		@SuppressWarnings("unused")
 		CategoriesController categories_account = new CategoriesController(this);
-
 		@SuppressWarnings("unused")
 		ProductsController product_section = new ProductsController(this);
-		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
+		@SuppressWarnings("unused")
+		PurchasesController purchase_section = new PurchasesController(this);
 
-		PurchasesController purchase_section = new PurchasesController(purchase, purchaseDao, this);
+		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
 
 		SalesController sale_section = new SalesController(sale, saleDao, this);
 	}
@@ -381,10 +381,10 @@ public class DynamicSystemView extends AbstractSystemView {
 		txt_purchase_subtotal = UIComponentFactory.createTextField(ComponentPosition.SEVEN);
 		txt_purchase_subtotal.setEditable(false);
 		NuevaCompra.add(txt_purchase_subtotal);
-		txt_purchase_id = UIComponentFactory.createTextField(ComponentPosition.EIGHT);
-		txt_purchase_id.setEditable(false);
-		txt_purchase_id.setEnabled(false);
-		NuevaCompra.add(txt_purchase_id);
+		txt_purchase_product_id = UIComponentFactory.createTextField(ComponentPosition.EIGHT);
+		txt_purchase_product_id.setEditable(false);
+		txt_purchase_product_id.setEnabled(false);
+		NuevaCompra.add(txt_purchase_product_id);
 		txt_purchase_total = UIComponentFactory.createTextField(ComponentPosition.NINE);
 		txt_purchase_total.setEditable(false);
 		NuevaCompra.add(txt_purchase_total);

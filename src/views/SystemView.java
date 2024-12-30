@@ -105,8 +105,7 @@ public class SystemView extends AbstractSystemView {
 		CategoriesController categories_account = new CategoriesController(this);
 		ProductsController product_section = new ProductsController(this);
 
-		PurchasesController purchase_section = new PurchasesController(purchase, purchaseDao, this);
-		purchase_section.listAllPurchases();
+		PurchasesController purchase_section = new PurchasesController(this);
 
 		SalesController sale_section = new SalesController(sale, saleDao, this);
 		sale_section.listAllSales();
@@ -608,13 +607,13 @@ public class SystemView extends AbstractSystemView {
 		txt_purchase_total.setBounds(531, 233, 166, 20);
 		NuevaCompra.add(txt_purchase_total);
 
-		txt_purchase_id = new JTextField();
-		txt_purchase_id.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		txt_purchase_id.setEnabled(false);
-		txt_purchase_id.setEditable(false);
-		txt_purchase_id.setColumns(10);
-		txt_purchase_id.setBounds(531, 172, 166, 20);
-		NuevaCompra.add(txt_purchase_id);
+		txt_purchase_product_id = new JTextField();
+		txt_purchase_product_id.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txt_purchase_product_id.setEnabled(false);
+		txt_purchase_product_id.setEditable(false);
+		txt_purchase_product_id.setColumns(10);
+		txt_purchase_product_id.setBounds(531, 172, 166, 20);
+		NuevaCompra.add(txt_purchase_product_id);
 
 		JLabel lblNewLabel_2_2_1_3 = new JLabel("Total a pagar: ");
 		lblNewLabel_2_2_1_3.setHorizontalAlignment(SwingConstants.RIGHT);

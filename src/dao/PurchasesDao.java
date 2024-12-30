@@ -23,7 +23,7 @@ public class PurchasesDao {
 	ResultSet rs;
 
 	public boolean registerPurchaseQuery(int supplier_id, int employee_id, double total) {
-		String query = "INSERT INTO purchases (supplier_id, employee_id,total, created)" + "VALUES(?,?,?,?)";
+		String query = "INSERT INTO purchases (supplier_id, employee_id, total, created)" + "VALUES(?,?,?,?)";
 		LocalDateTime now = LocalDateTime.now();
 		Timestamp timestamp = Timestamp.valueOf(now);
 		try {
@@ -101,7 +101,7 @@ public class PurchasesDao {
 		return list_purchases;
 	}
 
-	// Listar compras para emitir factura
+	// Listar compras para emitir factura en Print()
 	public List<Purchases> listPurchaseDetailQuery(int id) {
 		List<Purchases> list_purchases = new ArrayList<>();
 		String query = "" + "SELECT " + "pu.created, "
@@ -133,4 +133,5 @@ public class PurchasesDao {
 		}
 		return list_purchases;
 	}
+
 }
