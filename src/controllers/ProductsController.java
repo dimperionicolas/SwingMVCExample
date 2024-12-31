@@ -12,7 +12,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.base.BaseController;
-import dao.ProductsDao;
 import exceptions.BusinessException;
 import models.Products;
 import services.ProductService;
@@ -21,16 +20,12 @@ import views.base.AbstractSystemView;
 
 public class ProductsController extends BaseController implements ChangeListener {
 
-//	private Products product;
-	private ProductsDao productDao;
-	private ProductService productService;
 	String rol = rol_user;
-//	DefaultTableModel model = new DefaultTableModel();
+	private ProductService productService;
 
 	public ProductsController(AbstractSystemView views) {
 		super(views);
-		this.productDao = new ProductsDao();
-		this.productService = new ProductService(productDao);
+		this.productService = ProductService.getInstance();
 		listAllProducts();
 		disablesButtonsForNonAdmin();
 	}

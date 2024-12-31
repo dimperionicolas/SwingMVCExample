@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import controllers.base.BaseController;
-import dao.CategoriesDao;
 import exceptions.BusinessException;
 import models.Categories;
 import services.CategoryService;
@@ -20,15 +19,13 @@ import utils.DynamicCombobox;
 import views.base.AbstractSystemView;
 
 public class CategoriesController extends BaseController {
-	private final CategoriesDao categoryDao;
 	private final CategoryService categoryService;
 
 	String rol = rol_user; // TODO y esto que es? en que momento se setea?
 
 	public CategoriesController(AbstractSystemView views) {
 		super(views);
-		this.categoryDao = new CategoriesDao();
-		this.categoryService = new CategoryService(categoryDao);
+		this.categoryService = CategoryService.getInstance();
 		listAllCategories();
 		getCategoryName();
 	}

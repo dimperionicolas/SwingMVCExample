@@ -12,9 +12,21 @@ import services.base.BaseService;
 public class CategoryService extends BaseService {
 
 	private final CategoriesDao categoryDao;
+	private static volatile CategoryService instance;
 
-	public CategoryService(CategoriesDao categoryDao) {
-		this.categoryDao = categoryDao;
+	private CategoryService() {
+		this.categoryDao = new CategoriesDao();
+	}
+
+	public static CategoryService getInstance() {
+		if (instance == null) {
+			synchronized (CategoryService.class) {
+				if (instance == null) {
+					instance = new CategoryService();
+				}
+			}
+		}
+		return instance;
 	}
 
 	public void registerCategory(Categories category) throws BusinessException {

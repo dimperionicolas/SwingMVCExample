@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.base.BaseController;
-import dao.CustomersDao;
 import exceptions.BusinessException;
 import models.Customers;
 import services.CustomerService;
@@ -16,13 +15,11 @@ import views.base.AbstractSystemView;
 
 public class CustomersController extends BaseController {
 
-	private final CustomersDao customerDao;
 	private final CustomerService customerService;
 
 	public CustomersController(AbstractSystemView views) {
 		super(views);
-		this.customerDao = new CustomersDao();
-		customerService = new CustomerService(customerDao);
+		customerService = CustomerService.getInstance();
 		listAllCustomers();
 	}
 

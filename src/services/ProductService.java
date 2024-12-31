@@ -11,10 +11,23 @@ import models.Products;
 import services.base.BaseService;
 
 public class ProductService extends BaseService {
-	private final ProductsDao productDao;
 
-	public ProductService(ProductsDao productdao) {
-		this.productDao = productdao;
+	private final ProductsDao productDao;
+	private static volatile ProductService instance;
+
+	private ProductService() {
+		this.productDao = new ProductsDao();
+	}
+
+	public static ProductService getInstance() {
+		if (instance == null) {
+			synchronized (ProductService.class) {
+				if (instance == null) {
+					instance = new ProductService();
+				}
+			}
+		}
+		return instance;
 	}
 
 	public void registerProduct(Products product) throws BusinessException {

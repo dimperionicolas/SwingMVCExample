@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 import controllers.base.BaseController;
 import dao.ProductsDao;
-import dao.PurchasesDao;
 import exceptions.BusinessException;
 import exceptions.ValidationException;
 import models.Products;
@@ -24,17 +23,15 @@ import views.base.AbstractSystemView;
 
 public class PurchasesController extends BaseController {
 
-	private final PurchasesDao purchaseDao;
 	private final PurchaseService purchaseService;
 	DefaultTableModel temp;
 	ProductsDao productDao; // TODO eliminar esto
 
 	public PurchasesController(AbstractSystemView views) {
 		super(views);
-		this.purchaseDao = new PurchasesDao();
-		this.productDao = new ProductsDao();
+		this.productDao = new ProductsDao(); // Eliminar tras pasar comportamiento a servicio
 
-		this.purchaseService = new PurchaseService(purchaseDao);
+		this.purchaseService = PurchaseService.getInstance();
 		listAllPurchasesOnReportTable();
 	}
 

@@ -12,9 +12,21 @@ import services.base.BaseService;
 
 public class CustomerService extends BaseService {
 	private final CustomersDao customerDao;
+	private static volatile CustomerService instance;
 
-	public CustomerService(CustomersDao customerDao) {
-		this.customerDao = customerDao;
+	private CustomerService() {
+		this.customerDao = new CustomersDao();
+	}
+
+	public static CustomerService getInstance() {
+		if (instance == null) {
+			synchronized (CustomerService.class) {
+				if (instance == null) {
+					instance = new CustomerService();
+				}
+			}
+		}
+		return instance;
 	}
 
 	public void registerCustomer(Customers customer) throws BusinessException {

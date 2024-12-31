@@ -14,8 +14,21 @@ public class PurchaseService extends BaseService {
 	private int supplierId = 0;
 //	private int employeeId = 0; // TODO esto se deberia setear de alguna manera hasta cerrar sesion
 
-	public PurchaseService(PurchasesDao purchasesDao) {
-		this.purchasesDao = purchasesDao;
+	private static volatile PurchaseService instance;
+
+	private PurchaseService() {
+		this.purchasesDao = new PurchasesDao();
+	}
+
+	public static PurchaseService getInstance() {
+		if (instance == null) {
+			synchronized (PurchaseService.class) {
+				if (instance == null) {
+					instance = new PurchaseService();
+				}
+			}
+		}
+		return instance;
 	}
 
 	public void registerPurchase(int employee_id, String text) throws BusinessException {
