@@ -104,8 +104,7 @@ public class SystemView extends AbstractSystemView {
 
 		PurchasesController purchase_section = new PurchasesController(this);
 
-		SalesController sale_section = new SalesController(sale, saleDao, this);
-		sale_section.listAllSales();
+		SalesController sale_section = new SalesController(this);
 	}
 
 	public String tittleInterface() {

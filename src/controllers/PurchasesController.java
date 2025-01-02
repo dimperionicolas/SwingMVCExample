@@ -16,6 +16,7 @@ import models.Purchases;
 import services.ProductService;
 import services.PurchaseService;
 import utils.DynamicCombobox;
+import views.Print;
 import views.base.AbstractSystemView;
 
 public class PurchasesController extends BaseController {
@@ -293,8 +294,8 @@ public class PurchasesController extends BaseController {
 	}
 
 	private void print(int purchase_id) {
-		// Print print = new Print(purchase_id);
-		// print.setVisible(true);
+		Print print = new Print(purchase_id);
+		print.setVisible(true);
 	}
 
 }

@@ -99,4 +99,9 @@ public class SalesDao {
 		}
 		return list_sales;
 	}
+
+	public boolean exists(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -78,13 +78,13 @@ public class ProductService extends BaseService {
 		}
 	}
 
-	public void updateStock(int product_id, int purchase_amount) throws BusinessException {
+	public void updateStock(int product_id, int quantity) throws BusinessException {
 		Products product = productDao.searchId(product_id);
 		if (product == null) {
 			throw new ValidationException("El producto no puede ser nulo");
 		}
 
-		int amount = product.getProduct_quantity() + purchase_amount;
+		int amount = product.getProduct_quantity() + quantity;
 		if (!productDao.updateStockQuery(amount, product_id)) {
 			throw new BusinessException("Ha ocurrido un error al actualizar el producto.", ErrorCode.DATABASE_ERROR);
 		}
@@ -93,7 +93,7 @@ public class ProductService extends BaseService {
 	public Products searchCode(int id) throws ValidationException {
 		Products product = productDao.searchCode(id);
 		if (product == null) {
-			throw new ValidationException("El producto no puede ser nulo");
+			throw new ValidationException("No se encontro un producto con ese Id.");
 		}
 		return product;
 	}

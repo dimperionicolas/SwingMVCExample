@@ -153,10 +153,9 @@ public class DynamicSystemView extends AbstractSystemView {
 		ProductsController product_section = new ProductsController(this);
 		@SuppressWarnings("unused")
 		PurchasesController purchase_section = new PurchasesController(this);
-
 		SuppliersController suppliers_account = new SuppliersController(supplier, supplierDao, this);
-
-		SalesController sale_section = new SalesController(sale, saleDao, this);
+		@SuppressWarnings("unused")
+		SalesController sale_section = new SalesController(this);
 	}
 
 	public String tittleInterface() {

@@ -181,7 +181,7 @@ public class EmployeesController extends BaseController {
 					row[5] = list.get(i).getEmail();
 					row[6] = list.get(i).getRol();
 					model.addRow(row);
-					views.customers_table.setModel(model);
+					views.employees_table.setModel(model);
 				}
 			} catch (BusinessException ex) {
 				showError("Error", ex.getMessage());
