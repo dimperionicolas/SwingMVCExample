@@ -22,13 +22,13 @@ public class EmployeesDao {
 	ResultSet rs;
 
 	// Variables para enviar datos entre interfaces
-	public static int id_user = 0;
-	public static String full_name_user = "";
-	public static String username_user = "";
-	public static String address_user = "";
-	public static String rol_user = "";
-	public static String email_user = "";
-	public static String telephone_user = "";
+//	public static int id_user = 0;
+//	public static String full_name_user = "";
+//	public static String username_user = "";
+//	public static String address_user = "";
+//	public static String rol_user = "";
+//	public static String email_user = "";
+//	public static String telephone_user = "";
 
 	// Metodo login
 	public Employees loginQuery(String user, String password) {
@@ -43,19 +43,19 @@ public class EmployeesDao {
 			if (rs.next()) {
 				// TODO esto es optimo?
 				employee.setId(rs.getInt("id"));
-				id_user = employee.getId();
+//				id_user = employee.getId();
 				employee.setFull_name(rs.getString("full_name"));
-				full_name_user = employee.getFull_name();
+//				full_name_user = employee.getFull_name();
 				employee.setUsername(rs.getString("username"));
-				username_user = employee.getUsername();
+//				username_user = employee.getUsername();
 				employee.setAddress(rs.getString("address"));
-				address_user = employee.getAddress();
+//				address_user = employee.getAddress();
 				employee.setTelephone(rs.getString("telephone"));
-				telephone_user = employee.getTelephone();
+//				telephone_user = employee.getTelephone();
 				employee.setEmail(rs.getString("email"));
-				email_user = employee.getEmail();
+//				email_user = employee.getEmail();
 				employee.setRol(rs.getString("rol"));
-				rol_user = employee.getRol();
+//				rol_user = employee.getRol();
 			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error al obtener empleado: " + e.toString());
@@ -158,7 +158,8 @@ public class EmployeesDao {
 	}
 
 	public boolean updateEmployeePasswordQuery(Employees employee) {
-		String query = "UPDATE employees SET password = ? WHERE username = '" + username_user + "'";
+		String username = employee.getUsername();
+		String query = "UPDATE employees SET password = ? WHERE username = '" + username + "'";
 		try {
 			conn = cn.getConnection();
 			pst = conn.prepareStatement(query);
@@ -169,5 +170,10 @@ public class EmployeesDao {
 			JOptionPane.showMessageDialog(null, "Error al modificar los datos del empleado: " + e.toString());
 			return false;
 		}
+	}
+
+	public boolean exists(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

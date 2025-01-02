@@ -13,16 +13,23 @@ import views.SystemView;
 
 public class LoginController implements ActionListener {
 
-	private Employees employee;
+	public static Employees employee;
 	private EmployeesDao employees_dao;
 	private LoginView login_view;
+	// TODO podria tener la vista tambien, crear el servicio, y agregar la vista del
+	// sistema. ademas, controlar el evento de logOut aca
 
 	public LoginController(Employees employee, EmployeesDao employees_dao, LoginView login_view) {
-		this.employee = employee;
 		this.employees_dao = employees_dao;
 		this.login_view = login_view;
 		this.login_view.btn_enter.addActionListener(this);
+	}
 
+	public static boolean getPermission() { // TODO modificar
+		if (employee.getRol().equals("Administrador".toUpperCase())) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -85,12 +85,10 @@ public class CustomerService extends BaseService {
 	}
 
 	private boolean isValidEmail(String email) {
-		// TODO Implementar validación de email. Podria ir en el baseService
 		return email != null && email.contains("@");
 	}
 
 	private boolean isValidPhone(String phone) {
-		// TODO Implementar validación de teléfono. Podria ir en el baseService
 		return phone != null && phone.matches("\\d+");
 	}
 

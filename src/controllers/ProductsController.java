@@ -1,7 +1,5 @@
 package controllers;
 
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -20,7 +18,6 @@ import views.base.AbstractSystemView;
 
 public class ProductsController extends BaseController implements ChangeListener {
 
-	String rol = rol_user;
 	private ProductService productService;
 
 	public ProductsController(AbstractSystemView views) {
@@ -164,7 +161,7 @@ public class ProductsController extends BaseController implements ChangeListener
 	}
 
 	private void disablesButtonsForNonAdmin() {
-		if (rol.equals("Auxiliar".toUpperCase())) { // TODO otra visual
+		if (!LoginController.getPermission()) {
 			views.btn_product_register.setEnabled(false);
 			views.btn_product_update.setEnabled(false);
 			views.btn_product_delete.setEnabled(false);

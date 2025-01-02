@@ -1,11 +1,5 @@
 package controllers;
 
-import static dao.EmployeesDao.address_user;
-import static dao.EmployeesDao.email_user;
-import static dao.EmployeesDao.full_name_user;
-import static dao.EmployeesDao.id_user;
-import static dao.EmployeesDao.telephone_user;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -13,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 
 import controllers.base.BaseController;
+import models.Employees;
 import views.base.AbstractSystemView;
 
 public class SettingsController extends BaseController {
@@ -37,11 +32,12 @@ public class SettingsController extends BaseController {
 
 	// Asignar el perfil del usuario
 	public void profile() {
-		this.views.txt_profile_id.setText("" + id_user);
-		this.views.txt_profile_fullname.setText(full_name_user);
-		this.views.txt_profile_address.setText(address_user);
-		this.views.txt_profile_telephone.setText(telephone_user);
-		this.views.txt_profile_email.setText(email_user);
+		Employees employee = LoginController.employee;
+		this.views.txt_profile_id.setText("" + employee.getId());
+		this.views.txt_profile_fullname.setText(employee.getFull_name());
+		this.views.txt_profile_address.setText(employee.getAddress());
+		this.views.txt_profile_telephone.setText(employee.getTelephone());
+		this.views.txt_profile_email.setText(employee.getEmail());
 	}
 
 	@Override

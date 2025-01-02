@@ -1,8 +1,5 @@
 package controllers;
 
-import static dao.EmployeesDao.id_user;
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -12,11 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.base.BaseController;
-import dao.ProductsDao;
 import exceptions.BusinessException;
 import exceptions.ValidationException;
 import models.Products;
 import models.Purchases;
+import services.ProductService;
 import services.PurchaseService;
 import utils.DynamicCombobox;
 import views.base.AbstractSystemView;
@@ -25,12 +22,9 @@ public class PurchasesController extends BaseController {
 
 	private final PurchaseService purchaseService;
 	DefaultTableModel temp;
-	ProductsDao productDao; // TODO eliminar esto
 
 	public PurchasesController(AbstractSystemView views) {
 		super(views);
-		this.productDao = new ProductsDao(); // Eliminar tras pasar comportamiento a servicio
-
 		this.purchaseService = PurchaseService.getInstance();
 		listAllPurchasesOnReportTable();
 	}
@@ -115,25 +109,17 @@ public class PurchasesController extends BaseController {
 	}
 
 	private void confirmPurchase() throws BusinessException {
-		purchaseService.registerPurchase(id_user, views.txt_purchase_total.getText());
+		purchaseService.registerPurchase(views.txt_purchase_total.getText());
 		int purchase_id = purchaseService.purchaseLastId();
 		for (int i = 0; i < views.purchase_table.getRowCount(); i++) {
 			registerPurchaseDetail(purchase_id, i);
-			updateProductStock(i);
+			int product_id = Integer.parseInt(views.purchase_table.getValueAt(i, 0).toString());
+			int purchase_amount = Integer.parseInt(views.purchase_table.getValueAt(i, 2).toString());
+			purchaseService.adjustStockAfterPurchase(product_id, purchase_amount);
 		}
 		refreshView();
 		showSuccess("Compra generada con éxito");
 		print(purchase_id);
-	}
-
-	private void updateProductStock(int i) {
-		int product_id = Integer.parseInt(views.purchase_table.getValueAt(i, 0).toString());
-		// TODO obtener el ProductService desde alguna factory tal vez.
-		// No instanciar una nueva
-		Products product = productDao.searchId(product_id);
-		int purchase_amount = Integer.parseInt(views.purchase_table.getValueAt(i, 2).toString());
-		int amount = product.getProduct_quantity() + purchase_amount;
-		productDao.updateStockQuery(amount, product_id);
 	}
 
 	private void registerPurchaseDetail(int purchase_id, int i) throws BusinessException {
@@ -178,7 +164,7 @@ public class PurchasesController extends BaseController {
 	public void mouseClicked(MouseEvent e) {
 		Object source = e.getSource();
 		if (source == views.jlabel_purchases) {
-			if (rol_user.equals("Administrador".toUpperCase())) {// TODO validacion de permisos
+			if (LoginController.getPermission()) {
 				views.panel_tab_menu_options.setSelectedIndex(2);
 				cleanTable();
 			} else {
@@ -201,11 +187,18 @@ public class PurchasesController extends BaseController {
 					showValidationError("Ingresa el código del producto a comprar");
 				} else {
 					int id = Integer.parseInt(views.txt_purchase_unit_code.getText());
-					// TODO obtener productService. Se chequea luego pero no agregar si no existe
-					Products product = productDao.searchCode(id);
-					views.txt_purchase_product_name.setText(product.getName());
-					views.txt_purchase_product_id.setText("" + product.getId());
-					views.txt_purchase_amount.requestFocus();
+					Products product;
+					try {
+						product = ProductService.getInstance().searchCode(id);
+						views.txt_purchase_product_name.setText(product.getName());
+						views.txt_purchase_product_id.setText("" + product.getId());
+						views.txt_purchase_amount.requestFocus();
+					} catch (ValidationException e1) {
+						// TODO Refactorizar excepcion
+						e1.printStackTrace();
+
+					}
+
 				}
 			}
 		}

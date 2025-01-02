@@ -1,7 +1,5 @@
 package controllers;
 
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,7 +21,6 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 	private Suppliers supplier;
 	private SuppliersDao supplierDao;
 	private AbstractSystemView views;
-	String rol = rol_user;
 
 	DefaultTableModel model = new DefaultTableModel();
 
@@ -134,7 +131,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 
 	// Listar proveedores
 	public void listAllSuppliers() {
-		if (rol.equals("Administrador".toUpperCase())) {
+		if (LoginController.getPermission()) {
 			List<Suppliers> list = supplierDao.listSuppliersQuery(views.txt_suppliers_search.getText());
 			model = (DefaultTableModel) views.suppliers_table.getModel();
 			Object[] row = new Object[7];
@@ -169,7 +166,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 			views.txt_supplier_id.setEditable(false);
 
 		} else if (e.getSource() == views.jlabel_suppliers) {
-			if (rol.equals("Administrador".toUpperCase())) {
+			if (LoginController.getPermission()) {
 				views.panel_tab_menu_options.setSelectedIndex(6);
 				// Limpiar tabla
 				cleanTable();

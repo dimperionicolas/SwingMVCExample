@@ -1,8 +1,5 @@
 package views;
 
-import static dao.EmployeesDao.full_name_user;
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -27,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import controllers.CategoriesController;
 import controllers.CustomersControllerDeprecated;
 import controllers.EmployeesController;
+import controllers.LoginController;
 import controllers.ProductsController;
 import controllers.PurchasesController;
 import controllers.SalesController;
@@ -94,8 +92,7 @@ public class SystemView extends AbstractSystemView {
 		tittleInterface();
 		SettingsController setting = new SettingsController(this);
 
-		EmployeesController employees_account = new EmployeesController(employee, employeesDao, this);
-		employees_account.listAllEmployees();
+		EmployeesController employees_account = new EmployeesController(this);
 
 		CustomersControllerDeprecated customer_account = new CustomersControllerDeprecated(customer, customerDao, this);
 		customer_account.listAllCustomers();
@@ -112,7 +109,9 @@ public class SystemView extends AbstractSystemView {
 	}
 
 	public String tittleInterface() {
+		String rol_user = LoginController.employee.getRol();
 		frame.setTitle("Panel - " + rol_user);
+		String full_name_user = LoginController.employee.getFull_name();
 		lbl_title_name_employee.setText(full_name_user);
 		lbl_title_rol_employee.setText(rol_user);
 		return rol_user.trim();

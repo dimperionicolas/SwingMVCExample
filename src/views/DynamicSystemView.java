@@ -1,8 +1,5 @@
 package views;
 
-import static dao.EmployeesDao.full_name_user;
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,6 +23,7 @@ import javax.swing.border.TitledBorder;
 import controllers.CategoriesController;
 import controllers.CustomersController;
 import controllers.EmployeesController;
+import controllers.LoginController;
 import controllers.ProductsController;
 import controllers.PurchasesController;
 import controllers.SalesController;
@@ -145,8 +143,8 @@ public class DynamicSystemView extends AbstractSystemView {
 		@SuppressWarnings("unused")
 		SettingsController setting = new SettingsController(this);
 
-		EmployeesController employees_account = new EmployeesController(employee, employeesDao, this);
-
+		@SuppressWarnings("unused")
+		EmployeesController employees_account = new EmployeesController(this);
 		@SuppressWarnings("unused")
 		CustomersController customer_account = new CustomersController(this);
 		@SuppressWarnings("unused")
@@ -162,7 +160,9 @@ public class DynamicSystemView extends AbstractSystemView {
 	}
 
 	public String tittleInterface() {
+		String rol_user = LoginController.employee.getRol();
 		frame.setTitle("Panel - " + rol_user);
+		String full_name_user = LoginController.employee.getFull_name();
 		lbl_title_name_employee.setText(full_name_user);
 		lbl_title_rol_employee.setText(rol_user);
 		return rol_user.trim();
@@ -215,6 +215,7 @@ public class DynamicSystemView extends AbstractSystemView {
 					dispose();
 					LoginView login = new LoginView();
 					login.setVisible(true);
+					LoginController.employee = null; // TODO quitar de aca
 				}
 			}
 		});

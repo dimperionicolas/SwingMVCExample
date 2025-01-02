@@ -1,7 +1,5 @@
 package controllers;
 
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -20,8 +18,6 @@ import views.base.AbstractSystemView;
 
 public class CategoriesController extends BaseController {
 	private final CategoryService categoryService;
-
-	String rol = rol_user; // TODO y esto que es? en que momento se setea?
 
 	public CategoriesController(AbstractSystemView views) {
 		super(views);
@@ -131,7 +127,7 @@ public class CategoriesController extends BaseController {
 
 	// Listar categorías
 	public void listAllCategories() {
-		if (!rol.equals("Administrador".toUpperCase())) {
+		if (!LoginController.getPermission()) {
 			return; // No se muestras las categorias si no es admin
 		}
 		try {
@@ -185,7 +181,7 @@ public class CategoriesController extends BaseController {
 			views.btn_category_register.setEnabled(false);
 			views.txt_category_id.setEditable(false);
 		} else if (e.getSource() == views.jlabel_categories) {
-			if (rol.equals("Administrador".toUpperCase())) {
+			if (LoginController.getPermission()) {
 				views.panel_tab_menu_options.setSelectedIndex(5);
 				refreshView();
 			} else {

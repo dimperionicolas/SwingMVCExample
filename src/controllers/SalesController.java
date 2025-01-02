@@ -1,8 +1,5 @@
 package controllers;
 
-import static dao.EmployeesDao.id_user;
-import static dao.EmployeesDao.rol_user;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -32,7 +29,6 @@ public class SalesController implements KeyListener, ActionListener, MouseListen
 	ProductsDao productDao = new ProductsDao();
 
 	private int item = 0;
-	String rol = rol_user;
 
 	DefaultTableModel model = new DefaultTableModel();
 	DefaultTableModel temp;
@@ -174,7 +170,7 @@ public class SalesController implements KeyListener, ActionListener, MouseListen
 		if (e.getSource() == views.jlabel_sales) {
 			views.panel_tab_menu_options.setSelectedIndex(2);
 		} else if (e.getSource() == views.jlabel_reports) {
-			if (rol.equals("Administrador".toUpperCase())) {
+			if (LoginController.getPermission()) {
 				views.panel_tab_menu_options.setSelectedIndex(7);
 				listAllSales();
 			} else {
@@ -187,7 +183,7 @@ public class SalesController implements KeyListener, ActionListener, MouseListen
 
 	private void insertSale() {
 		int customer_id = Integer.parseInt(views.txt_sale_customer_id.getText());
-		int employee_id = id_user;
+		int employee_id = LoginController.employee.getId();
 		double total = Double.parseDouble(views.txt_sale_total_to_pay.getText());
 		if (saleDao.registerSaleQuery(customer_id, employee_id, total)) {
 			Products product = new Products();
@@ -353,7 +349,7 @@ public class SalesController implements KeyListener, ActionListener, MouseListen
 
 	// Listar todas las ventas
 	public void listAllSales() {
-		if (rol.equals("Administrador".toUpperCase())) {
+		if (LoginController.getPermission()) {
 			List<Sales> list = saleDao.listAllSalesQuery();
 			model = (DefaultTableModel) views.sales_table.getModel();
 			// Recorrer la lista

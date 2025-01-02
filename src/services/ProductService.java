@@ -1,6 +1,5 @@
 package services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dao.ProductsDao;
@@ -74,23 +73,29 @@ public class ProductService extends BaseService {
 	}
 
 	private void validateProduct(Products product) throws ValidationException {
-		List<String> errors = new ArrayList<>();
 		if (product == null) {
-			throw new ValidationException("El cliente no puede ser nulo");
+			throw new ValidationException("El Producto no puede ser nulo");
 		}
-//		if (product.getFull_name() == null || product.getFull_name().trim().isEmpty()) {
-//			errors.add("El nombre completo es requerido");
-//		}
-//		if (product.getEmail() != null && !isValidEmail(product.getEmail())) {
-//			errors.add("El formato del email no es válido");
-//		}
-//		if (!isValidPhone(product.getTelephone())) {
-//			errors.add("El formato del teléfono no es válido");
-//		}
-//		if (!errors.isEmpty()) {
-//			throw new ValidationException(String.join(", ", errors));
-//		}
+	}
 
+	public void updateStock(int product_id, int purchase_amount) throws BusinessException {
+		Products product = productDao.searchId(product_id);
+		if (product == null) {
+			throw new ValidationException("El producto no puede ser nulo");
+		}
+
+		int amount = product.getProduct_quantity() + purchase_amount;
+		if (!productDao.updateStockQuery(amount, product_id)) {
+			throw new BusinessException("Ha ocurrido un error al actualizar el producto.", ErrorCode.DATABASE_ERROR);
+		}
+	}
+
+	public Products searchCode(int id) throws ValidationException {
+		Products product = productDao.searchCode(id);
+		if (product == null) {
+			throw new ValidationException("El producto no puede ser nulo");
+		}
+		return product;
 	}
 
 }

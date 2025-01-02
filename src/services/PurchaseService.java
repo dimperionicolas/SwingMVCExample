@@ -2,6 +2,7 @@ package services;
 
 import java.util.List;
 
+import controllers.LoginController;
 import dao.PurchasesDao;
 import exceptions.BusinessException;
 import exceptions.ErrorCode;
@@ -12,7 +13,6 @@ import services.base.BaseService;
 public class PurchaseService extends BaseService {
 	private final PurchasesDao purchasesDao;
 	private int supplierId = 0;
-//	private int employeeId = 0; // TODO esto se deberia setear de alguna manera hasta cerrar sesion
 
 	private static volatile PurchaseService instance;
 
@@ -31,8 +31,9 @@ public class PurchaseService extends BaseService {
 		return instance;
 	}
 
-	public void registerPurchase(int employee_id, String text) throws BusinessException {
+	public void registerPurchase(String text) throws BusinessException {
 		double total = checkAndGetPrices(text);
+		int employee_id = LoginController.employee.getId();
 		if (!purchasesDao.registerPurchaseQuery(supplierId, employee_id, total)) {
 			throw new BusinessException("Error al registrar la compra en la base de datos", ErrorCode.DATABASE_ERROR);
 		}
@@ -116,4 +117,7 @@ public class PurchaseService extends BaseService {
 		supplierId = 0;
 	}
 
+	public void adjustStockAfterPurchase(int product_id, int purchase_amount) throws BusinessException {
+		ProductService.getInstance().updateStock(product_id, purchase_amount);
+	}
 }
